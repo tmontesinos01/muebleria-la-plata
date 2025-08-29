@@ -1,0 +1,14 @@
+{
+  "hosting": {
+    "source": ".",
+    "rewrites": [
+      {
+        "source": "**",
+        "run": {
+          "serviceId": "muebleria-api",
+          "region": "us-central1"
+        }
+      }
+    ]
+  }
+}

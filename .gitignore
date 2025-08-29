@@ -1,0 +1,20 @@
+# Dependencies
+/packages
+
+# Build results
+[Bb]in/
+[Oo]bj/
+
+# Visual Studio generated files
+*.user
+*.suo
+.vs
+
+# Rider generated files
+.idea
+
+# User-specific files
+*.secrets.json
+
+# Other
+PasosParaPublicar.txt

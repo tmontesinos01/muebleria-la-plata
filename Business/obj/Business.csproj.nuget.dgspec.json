@@ -28,6 +28,9 @@
             "projectReferences": {
               "/home/user/muebleria-la-plata/Data/Data.csproj": {
                 "projectPath": "/home/user/muebleria-la-plata/Data/Data.csproj"
+              },
+              "/home/user/muebleria-la-plata/Entities/Entities.csproj": {
+                "projectPath": "/home/user/muebleria-la-plata/Entities/Entities.csproj"
               }
             }
           }
@@ -110,6 +113,12 @@
       "frameworks": {
         "net9.0": {
           "targetAlias": "net9.0",
+          "dependencies": {
+            "Microsoft.EntityFrameworkCore": {
+              "target": "Package",
+              "version": "[9.0.8, )"
+            }
+          },
           "imports": [
             "net461",
             "net462",
