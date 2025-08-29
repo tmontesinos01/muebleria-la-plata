@@ -1,11 +1,48 @@
 {
   "version": 3,
   "targets": {
-    "net9.0": {}
+    "net9.0": {
+      "Data/1.0.0": {
+        "type": "project",
+        "framework": ".NETCoreApp,Version=v9.0",
+        "dependencies": {
+          "Entities": "1.0.0"
+        },
+        "compile": {
+          "bin/placeholder/Data.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/Data.dll": {}
+        }
+      },
+      "Entities/1.0.0": {
+        "type": "project",
+        "framework": ".NETCoreApp,Version=v9.0",
+        "compile": {
+          "bin/placeholder/Entities.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/Entities.dll": {}
+        }
+      }
+    }
   },
-  "libraries": {},
+  "libraries": {
+    "Data/1.0.0": {
+      "type": "project",
+      "path": "../Data/Data.csproj",
+      "msbuildProject": "../Data/Data.csproj"
+    },
+    "Entities/1.0.0": {
+      "type": "project",
+      "path": "../Entities/Entities.csproj",
+      "msbuildProject": "../Entities/Entities.csproj"
+    }
+  },
   "projectFileDependencyGroups": {
-    "net9.0": []
+    "net9.0": [
+      "Data >= 1.0.0"
+    ]
   },
   "packageFolders": {
     "/home/user/.nuget/packages/": {}
@@ -13,11 +50,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "/home/user/muebleria-la-plata/myapp.csproj",
-      "projectName": "myapp",
-      "projectPath": "/home/user/muebleria-la-plata/myapp.csproj",
+      "projectUniqueName": "/home/user/muebleria-la-plata/Business/Business.csproj",
+      "projectName": "Business",
+      "projectPath": "/home/user/muebleria-la-plata/Business/Business.csproj",
       "packagesPath": "/home/user/.nuget/packages/",
-      "outputPath": "/home/user/muebleria-la-plata/obj/",
+      "outputPath": "/home/user/muebleria-la-plata/Business/obj/",
       "projectStyle": "PackageReference",
       "configFilePaths": [
         "/home/user/.nuget/NuGet/NuGet.Config"
@@ -31,7 +68,11 @@
       "frameworks": {
         "net9.0": {
           "targetAlias": "net9.0",
-          "projectReferences": {}
+          "projectReferences": {
+            "/home/user/muebleria-la-plata/Data/Data.csproj": {
+              "projectPath": "/home/user/muebleria-la-plata/Data/Data.csproj"
+            }
+          }
         }
       },
       "warningProperties": {
@@ -61,9 +102,6 @@
         "assetTargetFallback": true,
         "warn": true,
         "frameworkReferences": {
-          "Microsoft.AspNetCore.App": {
-            "privateAssets": "none"
-          },
           "Microsoft.NETCore.App": {
             "privateAssets": "all"
           }

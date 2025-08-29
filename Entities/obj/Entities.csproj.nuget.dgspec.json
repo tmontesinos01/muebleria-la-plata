@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "/home/user/muebleria-la-plata/myapp.csproj": {}
+    "/home/user/muebleria-la-plata/Entities/Entities.csproj": {}
   },
   "projects": {
-    "/home/user/muebleria-la-plata/myapp.csproj": {
+    "/home/user/muebleria-la-plata/Entities/Entities.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "/home/user/muebleria-la-plata/myapp.csproj",
-        "projectName": "myapp",
-        "projectPath": "/home/user/muebleria-la-plata/myapp.csproj",
+        "projectUniqueName": "/home/user/muebleria-la-plata/Entities/Entities.csproj",
+        "projectName": "Entities",
+        "projectPath": "/home/user/muebleria-la-plata/Entities/Entities.csproj",
         "packagesPath": "/home/user/.nuget/packages/",
-        "outputPath": "/home/user/muebleria-la-plata/obj/",
+        "outputPath": "/home/user/muebleria-la-plata/Entities/obj/",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "/home/user/.nuget/NuGet/NuGet.Config"
@@ -55,9 +55,6 @@
           "assetTargetFallback": true,
           "warn": true,
           "frameworkReferences": {
-            "Microsoft.AspNetCore.App": {
-              "privateAssets": "none"
-            },
             "Microsoft.NETCore.App": {
               "privateAssets": "all"
             }

@@ -1,0 +1,11 @@
+/home/user/muebleria-la-plata/Entities/bin/Debug/net9.0/Entities.deps.json
+/home/user/muebleria-la-plata/Entities/bin/Debug/net9.0/Entities.dll
+/home/user/muebleria-la-plata/Entities/bin/Debug/net9.0/Entities.pdb
+/home/user/muebleria-la-plata/Entities/obj/Debug/net9.0/Entities.GeneratedMSBuildEditorConfig.editorconfig
+/home/user/muebleria-la-plata/Entities/obj/Debug/net9.0/Entities.AssemblyInfoInputs.cache
+/home/user/muebleria-la-plata/Entities/obj/Debug/net9.0/Entities.AssemblyInfo.cs
+/home/user/muebleria-la-plata/Entities/obj/Debug/net9.0/Entities.csproj.CoreCompileInputs.cache
+/home/user/muebleria-la-plata/Entities/obj/Debug/net9.0/Entities.dll
+/home/user/muebleria-la-plata/Entities/obj/Debug/net9.0/refint/Entities.dll
+/home/user/muebleria-la-plata/Entities/obj/Debug/net9.0/Entities.pdb
+/home/user/muebleria-la-plata/Entities/obj/Debug/net9.0/ref/Entities.dll
