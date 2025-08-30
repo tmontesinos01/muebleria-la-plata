@@ -94,7 +94,7 @@ if (app.Environment.IsDevelopment())
     app.UseSwaggerUI();
 }
 
-app.UseHttpsRedirection();
+// app.UseHttpsRedirection(); // This line is commented out as it causes issues behind a reverse proxy
 
 app.UseAuthentication();
 app.UseAuthorization();
