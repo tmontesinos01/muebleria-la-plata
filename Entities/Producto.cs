@@ -1,14 +1,20 @@
-namespace Entities
+using Google.Cloud.Firestore;
+using Entities.Interfaces;
+
+namespace Entities;
+
+[FirestoreData]
+public class Producto : IEntity
 {
-    public class Producto : EntidadMaestra
-    {
-        public int IdCategoria { get; set; } 
-        public required string Codigo { get; set; }
-        public required string Nombre { get; set; }
-        public decimal Precio { get; set; }
-        public int Stock { get; set; }
-        public int StockMinimo { get; set; }
-        public string? Descripcion { get; set; }
-        public virtual Categoria? Categoria { get; set; }
-    }
+    [FirestoreProperty]
+    public string? Id { get; set; }
+
+    [FirestoreProperty]
+    public string? Nombre { get; set; }
+
+    [FirestoreProperty]
+    public decimal Precio { get; set; }
+
+    [FirestoreProperty]
+    public string? CategoriaId { get; set; }
 }

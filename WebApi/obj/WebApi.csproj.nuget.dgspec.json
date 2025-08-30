@@ -50,6 +50,12 @@
       "frameworks": {
         "net9.0": {
           "targetAlias": "net9.0",
+          "dependencies": {
+            "Google.Cloud.Firestore": {
+              "target": "Package",
+              "version": "[3.10.0, )"
+            }
+          },
           "imports": [
             "net461",
             "net462",
@@ -114,19 +120,9 @@
         "net9.0": {
           "targetAlias": "net9.0",
           "dependencies": {
-            "Microsoft.EntityFrameworkCore": {
-              "target": "Package",
-              "version": "[9.0.0-preview.4.24267.1, )"
-            },
-            "Microsoft.EntityFrameworkCore.Design": {
-              "include": "Runtime, Build, Native, ContentFiles, Analyzers, BuildTransitive",
-              "suppressParent": "All",
-              "target": "Package",
-              "version": "[9.0.0-preview.4.24267.1, )"
-            },
             "Microsoft.EntityFrameworkCore.Sqlite": {
               "target": "Package",
-              "version": "[9.0.0-preview.4.24267.1, )"
+              "version": "[9.0.8, )"
             }
           },
           "imports": [
@@ -188,6 +184,12 @@
       "frameworks": {
         "net9.0": {
           "targetAlias": "net9.0",
+          "dependencies": {
+            "Google.Cloud.Firestore": {
+              "target": "Package",
+              "version": "[3.4.0, )"
+            }
+          },
           "imports": [
             "net461",
             "net462",
@@ -232,6 +234,12 @@
             "projectReferences": {
               "/home/user/muebleria-la-plata/Business/Business.csproj": {
                 "projectPath": "/home/user/muebleria-la-plata/Business/Business.csproj"
+              },
+              "/home/user/muebleria-la-plata/Data/Data.csproj": {
+                "projectPath": "/home/user/muebleria-la-plata/Data/Data.csproj"
+              },
+              "/home/user/muebleria-la-plata/Entities/Entities.csproj": {
+                "projectPath": "/home/user/muebleria-la-plata/Entities/Entities.csproj"
               }
             }
           }
@@ -252,19 +260,13 @@
         "net9.0": {
           "targetAlias": "net9.0",
           "dependencies": {
-            "Microsoft.AspNetCore.OpenApi": {
+            "Microsoft.AspNetCore.Authentication.JwtBearer": {
               "target": "Package",
-              "version": "[9.0.0-preview.4.24267.8, )"
-            },
-            "Microsoft.EntityFrameworkCore.Design": {
-              "include": "Runtime, Build, Native, ContentFiles, Analyzers, BuildTransitive",
-              "suppressParent": "All",
-              "target": "Package",
-              "version": "[9.0.0-preview.4.24267.1, )"
+              "version": "[9.0.0-preview.3.24172.13, )"
             },
             "Swashbuckle.AspNetCore": {
               "target": "Package",
-              "version": "[6.6.2, )"
+              "version": "[6.5.0, )"
             }
           },
           "imports": [

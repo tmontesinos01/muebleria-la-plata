@@ -1,14 +1,13 @@
 using Data.Interfaces;
 using Entities;
+using Google.Cloud.Firestore;
 
 namespace Data.Repositorios
 {
-    public class ProductoRepositorio : IProductoRepositorio
+    public class ProductoRepositorio : FirebaseRepository<Producto>, IProductoRepositorio
     {
-        public Producto GetProducto(int id)
+        public ProductoRepositorio(FirestoreDb firestoreDb) : base(firestoreDb)
         {
-            // Aquí iría la lógica para obtener un producto de la base de datos
-            return new Producto { Id = id, Nombre = "Silla", Precio = 50, Codigo = "S-001" };
         }
     }
 }

@@ -1,14 +1,13 @@
 using Data.Interfaces;
 using Entities;
+using Google.Cloud.Firestore;
 
 namespace Data.Repositorios
 {
-    public class ClienteRepositorio : IClienteRepositorio
+    public class ClienteRepositorio : FirebaseRepository<Cliente>, IClienteRepositorio
     {
-        public Cliente GetCliente(int id)
+        public ClienteRepositorio(FirestoreDb firestoreDb) : base(firestoreDb)
         {
-            // Aquí iría la lógica para obtener un cliente de la base de datos
-            return new Cliente { Id = id, Nombre = "Juan", Apellido = "Pérez" };
         }
     }
 }

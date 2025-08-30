@@ -2,8 +2,8 @@ using Entities;
 
 namespace Data.Interfaces
 {
-    public interface IProductoRepositorio
+    public interface IProductoRepositorio : IRepository<Producto>
     {
-        Producto GetProducto(int id);
+        // We can add specific methods for products here in the future if needed
     }
 }

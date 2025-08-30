@@ -1,0 +1,37 @@
+### Pasos para Agregar un Perfil de Publicación en Visual Studio ###
+
+Un perfil de publicación (.pubxml) te permite guardar la configuración de despliegue para que puedas publicar tu aplicación de forma rápida y consistente.
+
+Aquí te explico cómo crear uno para tu proyecto `WebApi`:
+
+1.  **Haz Clic Derecho en el Proyecto Principal:**
+    *   En el "Explorador de Soluciones" de Visual Studio, busca tu proyecto principal, que es `WebApi`.
+    *   Haz clic derecho sobre él.
+
+2.  **Selecciona la Opción "Publicar":**
+    *   En el menú contextual que aparece, selecciona la opción `Publicar...` (o `Publish...`).
+
+3.  **Elige un Destino de Publicación:**
+    *   Se abrirá un asistente. Aquí debes elegir a dónde quieres desplegar tu aplicación. Para este proyecto, la opción correcta es **Docker Container Registry**.
+
+4.  **Configura el Destino Específico:**
+    *   **Docker Hub:** Selecciona esta opción.
+    *   **URL del Registro:** `gcr.io/muebleria-la-plata/muebleria-api`
+    *   **Nombre de Usuario:** No es necesario para GCR. La autenticación se realiza a través de `gcloud`.
+    *   **Contraseña:** No es necesaria. La autenticación se realiza a través de `gcloud`.
+
+5.  **Autenticación con Google Cloud:**
+    *   **IMPORTANTE:** Para que Visual Studio pueda publicar en GCR, primero debes autenticarte con Google Cloud en tu terminal local. Ejecuta el siguiente comando:
+        ```
+        gcloud auth configure-docker
+        ```
+    *   Este comando configura Docker para que use tus credenciales de `gcloud` al interactuar con GCR. Solo necesitas hacerlo una vez.
+
+6.  **Finaliza la Creación del Perfil:**
+    *   Una vez que completes la configuración, Visual Studio creará el perfil de publicación (`.pubxml`) en `Properties/PublishProfiles`.
+
+7.  **¡Publica tu Aplicación!**
+    *   Desde la pantalla de resumen del perfil, haz clic en `Publicar`.
+    *   La próxima vez que quieras publicar, solo tienes que volver a la opción `Publicar...`, seleccionar este perfil y hacer clic en `Publicar`.
+
+¡Y listo! Con esto, tendrás un proceso de despliegue automatizado y repetible directamente desde tu IDE.

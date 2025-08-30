@@ -1,11 +1,24 @@
+using Google.Cloud.Firestore;
+using Entities.Interfaces;
+
 namespace Entities
 {
-    public class Cliente
+    [FirestoreData]
+    public class Cliente : IEntity
     {
-        public int Id { get; set; }
-        public required string Nombre { get; set; }
-        public required string Apellido { get; set; }
-        public string? Correo { get; set; }
-        public string? Direccion { get; set; }
+        [FirestoreProperty]
+        public string? Id { get; set; }
+
+        [FirestoreProperty]
+        public string? Nombre { get; set; }
+
+        [FirestoreProperty]
+        public string? Apellido { get; set; }
+
+        [FirestoreProperty]
+        public string? Email { get; set; }
+
+        [FirestoreProperty]
+        public string? Telefono { get; set; }
     }
 }

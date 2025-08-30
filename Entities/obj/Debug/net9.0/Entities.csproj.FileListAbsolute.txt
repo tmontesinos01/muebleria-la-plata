@@ -10,3 +10,4 @@
 /home/user/muebleria-la-plata/Entities/obj/Debug/net9.0/Entities.pdb
 /home/user/muebleria-la-plata/Entities/obj/Debug/net9.0/ref/Entities.dll
 /home/user/muebleria-la-plata/Entities/obj/Debug/net9.0/Entities.sourcelink.json
+/home/user/muebleria-la-plata/Entities/obj/Debug/net9.0/Entities.csproj.AssemblyReference.cache
