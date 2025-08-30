@@ -1,4 +1,5 @@
 using Business;
+using Business.Interfaces;
 using Data.Interfaces;
 using Data.Repositorios;
 using Google.Cloud.Firestore;
@@ -75,10 +76,13 @@ builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
 builder.Services.AddScoped<CategoriaService>();
 builder.Services.AddScoped<ClienteService>();
 builder.Services.AddScoped<ProductoService>();
+builder.Services.AddScoped<IFirebaseStorageService, FirebaseStorageService>(serviceProvider => 
+    new FirebaseStorageService(serviceProvider.GetRequiredService<StorageClient>(), builder.Configuration["Firebase:StorageBucket"]));
+
 
 // Repositories
 builder.Services.AddScoped<IProductoRepositorio, ProductoRepositorio>();
-builder.Services.A_dScoped<IClienteRepositorio, ClienteRepositorio>();
+builder.Services.AddScoped<IClienteRepositorio, ClienteRepositorio>();
 builder.Services.AddScoped<ICategoriaRepositorio, CategoriaRepositorio>();
 
 var app = builder.Build();
