@@ -26,3 +26,6 @@
 /home/user/muebleria-la-plata/obj/Debug/net9.0/myapp.pdb
 /home/user/muebleria-la-plata/obj/Debug/net9.0/myapp.genruntimeconfig.cache
 /home/user/muebleria-la-plata/obj/Debug/net9.0/ref/myapp.dll
+/home/user/muebleria-la-plata/obj/Debug/net9.0/myapp.csproj.AssemblyReference.cache
+/home/user/muebleria-la-plata/obj/Debug/net9.0/myapp.MvcApplicationPartsAssemblyInfo.cs
+/home/user/muebleria-la-plata/obj/Debug/net9.0/myapp.sourcelink.json

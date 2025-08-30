@@ -15,3 +15,4 @@
 /home/user/muebleria-la-plata/Business/obj/Debug/net9.0/refint/Business.dll
 /home/user/muebleria-la-plata/Business/obj/Debug/net9.0/Business.pdb
 /home/user/muebleria-la-plata/Business/obj/Debug/net9.0/ref/Business.dll
+/home/user/muebleria-la-plata/Business/obj/Debug/net9.0/Business.sourcelink.json

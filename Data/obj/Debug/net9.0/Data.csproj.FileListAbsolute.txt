@@ -13,3 +13,6 @@
 /home/user/muebleria-la-plata/Data/obj/Debug/net9.0/refint/Data.dll
 /home/user/muebleria-la-plata/Data/obj/Debug/net9.0/Data.pdb
 /home/user/muebleria-la-plata/Data/obj/Debug/net9.0/ref/Data.dll
+/home/user/muebleria-la-plata/Data/bin/Debug/net9.0/Data.runtimeconfig.json
+/home/user/muebleria-la-plata/Data/obj/Debug/net9.0/Data.sourcelink.json
+/home/user/muebleria-la-plata/Data/obj/Debug/net9.0/Data.genruntimeconfig.cache
