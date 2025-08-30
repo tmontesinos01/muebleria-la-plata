@@ -8,7 +8,7 @@ namespace Data.Repositorios
         public Producto GetProducto(int id)
         {
             // Aquí iría la lógica para obtener un producto de la base de datos
-            return new Producto { Id = id, Nombre = "Silla", Precio = 50 };
+            return new Producto { Id = id, Nombre = "Silla", Precio = 50, Codigo = "S-001" };
         }
     }
 }

@@ -1,8 +1,10 @@
 using Business;
+using Data;
 using Data.Interfaces;
 using Data.Repositorios;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
@@ -22,6 +24,10 @@ namespace WebApi
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllers();
+
+            // Configuración del DbContext
+            services.AddDbContext<ApplicationContext>(options =>
+                options.UseSqlite(Configuration.GetConnectionString("DefaultConnection")));
 
             // Repositorios
             services.AddScoped<IProductoRepositorio, ProductoRepositorio>();
