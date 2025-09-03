@@ -1,24 +1,29 @@
 using Google.Cloud.Firestore;
-using Entities.Interfaces;
 
 namespace Entities
 {
     [FirestoreData]
-    public class Cliente : IEntity
+    public class Cliente : EntidadMaestra
     {
         [FirestoreProperty]
-        public string? Id { get; set; }
+        public string Nombre { get; set; }
 
         [FirestoreProperty]
-        public string? Nombre { get; set; }
+        public string Apellido { get; set; }
 
         [FirestoreProperty]
-        public string? Apellido { get; set; }
+        public string TipoDocumento { get; set; } // "DNI", "CUIT", "CUIL"
 
         [FirestoreProperty]
-        public string? Email { get; set; }
+        public string NumeroDocumento { get; set; }
 
         [FirestoreProperty]
-        public string? Telefono { get; set; }
+        public string Direccion { get; set; }
+
+        [FirestoreProperty]
+        public string Telefono { get; set; }
+
+        [FirestoreProperty]
+        public string Email { get; set; }
     }
 }

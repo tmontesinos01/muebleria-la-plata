@@ -16,3 +16,5 @@
 /home/user/muebleria-la-plata/Business/obj/Debug/net9.0/Business.pdb
 /home/user/muebleria-la-plata/Business/obj/Debug/net9.0/ref/Business.dll
 /home/user/muebleria-la-plata/Business/obj/Debug/net9.0/Business.sourcelink.json
+/home/user/muebleria-la-plata/Business/bin/Debug/net9.0/Common.dll
+/home/user/muebleria-la-plata/Business/bin/Debug/net9.0/Common.pdb

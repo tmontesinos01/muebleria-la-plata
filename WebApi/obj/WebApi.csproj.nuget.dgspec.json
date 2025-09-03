@@ -51,6 +51,82 @@
         "net9.0": {
           "targetAlias": "net9.0",
           "dependencies": {
+            "FirebaseAdmin": {
+              "target": "Package",
+              "version": "[3.3.0, )"
+            },
+            "Google.Cloud.Storage.V1": {
+              "target": "Package",
+              "version": "[4.13.0, )"
+            }
+          },
+          "imports": [
+            "net461",
+            "net462",
+            "net47",
+            "net471",
+            "net472",
+            "net48",
+            "net481"
+          ],
+          "assetTargetFallback": true,
+          "warn": true,
+          "frameworkReferences": {
+            "Microsoft.AspNetCore.App": {
+              "privateAssets": "none"
+            },
+            "Microsoft.NETCore.App": {
+              "privateAssets": "all"
+            }
+          },
+          "runtimeIdentifierGraphPath": "/nix/store/3hhkyi53ky9qwjj9vjzg0pyq333vlrla-dotnet-sdk-9.0.203/share/dotnet/sdk/9.0.203/PortableRuntimeIdentifierGraph.json"
+        }
+      }
+    },
+    "/home/user/muebleria-la-plata/Common/Common.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "/home/user/muebleria-la-plata/Common/Common.csproj",
+        "projectName": "Common",
+        "projectPath": "/home/user/muebleria-la-plata/Common/Common.csproj",
+        "packagesPath": "/home/user/.nuget/packages/",
+        "outputPath": "/home/user/muebleria-la-plata/Common/obj/",
+        "projectStyle": "PackageReference",
+        "configFilePaths": [
+          "/home/user/.nuget/NuGet/NuGet.Config"
+        ],
+        "originalTargetFrameworks": [
+          "net9.0"
+        ],
+        "sources": {
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "net9.0": {
+            "targetAlias": "net9.0",
+            "projectReferences": {
+              "/home/user/muebleria-la-plata/Entities/Entities.csproj": {
+                "projectPath": "/home/user/muebleria-la-plata/Entities/Entities.csproj"
+              }
+            }
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        },
+        "restoreAuditProperties": {
+          "enableAudit": "true",
+          "auditLevel": "low",
+          "auditMode": "direct"
+        },
+        "SdkAnalysisLevel": "9.0.200"
+      },
+      "frameworks": {
+        "net9.0": {
+          "targetAlias": "net9.0",
+          "dependencies": {
             "Google.Cloud.Firestore": {
               "target": "Package",
               "version": "[3.10.0, )"
@@ -98,6 +174,9 @@
           "net9.0": {
             "targetAlias": "net9.0",
             "projectReferences": {
+              "/home/user/muebleria-la-plata/Common/Common.csproj": {
+                "projectPath": "/home/user/muebleria-la-plata/Common/Common.csproj"
+              },
               "/home/user/muebleria-la-plata/Entities/Entities.csproj": {
                 "projectPath": "/home/user/muebleria-la-plata/Entities/Entities.csproj"
               }
@@ -122,7 +201,7 @@
           "dependencies": {
             "Microsoft.EntityFrameworkCore.Sqlite": {
               "target": "Package",
-              "version": "[9.0.8, )"
+              "version": "[9.0.0-preview.6.24327.4, )"
             }
           },
           "imports": [
@@ -187,7 +266,7 @@
           "dependencies": {
             "Google.Cloud.Firestore": {
               "target": "Package",
-              "version": "[3.4.0, )"
+              "version": "[3.10.0, )"
             }
           },
           "imports": [
@@ -262,11 +341,11 @@
           "dependencies": {
             "Microsoft.AspNetCore.Authentication.JwtBearer": {
               "target": "Package",
-              "version": "[9.0.0-preview.3.24172.13, )"
+              "version": "[9.0.0-preview.6.24328.4, )"
             },
             "Swashbuckle.AspNetCore": {
               "target": "Package",
-              "version": "[6.5.0, )"
+              "version": "[6.6.2, )"
             }
           },
           "imports": [

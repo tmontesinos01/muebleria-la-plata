@@ -1,20 +1,22 @@
-# Use the .NET 8 SDK as the build environment
-FROM mcr.microsoft.com/dotnet/sdk:8.0 AS build
+# Stage 1: Build Environment
+FROM mcr.microsoft.com/dotnet/sdk:9.0 AS build
 WORKDIR /source
 
-# Copy all the files from the local source to the image
+# Copy everything at once
 COPY . .
 
 # Restore dependencies for the entire solution
 RUN dotnet restore "MuebleriaBack.sln"
 
-# Publish the main web application project
+# Publish the application from the root, specifying the project file
 RUN dotnet publish "WebApi/WebApi.csproj" -c Release -o /app/publish --no-restore
 
-# Use the .NET 8 ASP.NET runtime as the final image
-FROM mcr.microsoft.com/dotnet/aspnet:8.0
+# Stage 2: Runtime Environment
+FROM mcr.microsoft.com/dotnet/aspnet:9.0 AS runtime
 WORKDIR /app
 COPY --from=build /app/publish .
 
-# Set the entrypoint for the container
+# The default port for ASP.NET Core is 8080
+ENV ASPNETCORE_URLS=http://+:8080
+
 ENTRYPOINT ["dotnet", "WebApi.dll"]

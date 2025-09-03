@@ -1,10 +1,11 @@
 using Business;
 using Business.Interfaces;
+using Business.Services;
 using Data.Interfaces;
 using Data.Repositorios;
-using Google.Cloud.Firestore;
-using Google.Apis.Auth.OAuth2;
 using FirebaseAdmin;
+using Google.Apis.Auth.OAuth2;
+using Google.Cloud.Firestore;
 using Google.Cloud.Storage.V1;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
@@ -50,40 +51,45 @@ builder.Services.AddSwaggerGen(c =>
 });
 
 // Firebase
-FirebaseApp.Create(new AppOptions()
+var firebaseProjectId = builder.Configuration["Firebase:ProjectId"];
+builder.Services.AddSingleton(FirebaseApp.Create(new AppOptions()
 {
     Credential = GoogleCredential.GetApplicationDefault(),
-});
-builder.Services.AddSingleton(FirestoreDb.Create(builder.Configuration["Firebase:ProjectId"]));
-builder.Services.AddSingleton(StorageClient.Create());
+    ProjectId = firebaseProjectId,
+}));
+
+builder.Services.AddSingleton(provider => Google.Cloud.Firestore.FirestoreDb.Create(firebaseProjectId));
+builder.Services.AddSingleton(provider => StorageClient.Create());
 
 // Authentication
 builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
     .AddJwtBearer(options =>
     {
-        options.Authority = "https://securetoken.google.com/" + builder.Configuration["Firebase:ProjectId"];
+        options.Authority = "https://securetoken.google.com/" + firebaseProjectId;
         options.TokenValidationParameters = new TokenValidationParameters
         {
             ValidateIssuer = true,
-            ValidIssuer = "https://securetoken.google.com/" + builder.Configuration["Firebase:ProjectId"],
+            ValidIssuer = "https://securetoken.google.com/" + firebaseProjectId,
             ValidateAudience = true,
-            ValidAudience = builder.Configuration["Firebase:ProjectId"],
+            ValidAudience = firebaseProjectId,
             ValidateLifetime = true
         };
     });
 
 // Services
-builder.Services.AddScoped<CategoriaService>();
-builder.Services.AddScoped<ClienteService>();
-builder.Services.AddScoped<ProductoService>();
+builder.Services.AddScoped<IProductoBusiness, ProductoBusiness>();
 builder.Services.AddScoped<IFirebaseStorageService, FirebaseStorageService>(serviceProvider => 
-    new FirebaseStorageService(serviceProvider.GetRequiredService<StorageClient>(), builder.Configuration["Firebase:StorageBucket"]));
+    new FirebaseStorageService(serviceProvider.GetRequiredService<StorageClient>(), builder.Configuration["Firebase:StorageBucket"]!));
+builder.Services.AddScoped<IImagenService, ImagenService>();
 
 
 // Repositories
 builder.Services.AddScoped<IProductoRepositorio, ProductoRepositorio>();
 builder.Services.AddScoped<IClienteRepositorio, ClienteRepositorio>();
 builder.Services.AddScoped<ICategoriaRepositorio, CategoriaRepositorio>();
+builder.Services.AddScoped<IMovimientoStockRepositorio, MovimientoStockRepositorio>();
+builder.Services.AddScoped<IVentaRepositorio, VentaRepositorio>();
+builder.Services.AddScoped<IVentaDetalleRepositorio, VentaDetalleRepositorio>();
 
 var app = builder.Build();
 

@@ -1,8 +1,9 @@
 using Entities;
+using Data.Interfaces;
 
 namespace Data.Interfaces
 {
-    public interface ICategoriaRepositorio : IRepository<Categoria>
+    public interface ICategoriaRepositorio : IRepositorio<Categoria>
     {
     }
 }

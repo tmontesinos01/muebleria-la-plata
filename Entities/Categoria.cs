@@ -1,15 +1,11 @@
 using Google.Cloud.Firestore;
-using Entities.Interfaces;
 
 namespace Entities
 {
     [FirestoreData]
-    public class Categoria : IEntity
+    public class Categoria : EntidadMaestra
     {
         [FirestoreProperty]
-        public string? Id { get; set; }
-
-        [FirestoreProperty]
-        public string? Nombre { get; set; }
+        public string Nombre { get; set; }
     }
 }

@@ -1,24 +1,19 @@
-
-# Service account key
-serviceAccount.json
-**/serviceAccount.json
+# Dependencies
+[Bb]in/
+[Oo]bj/
 
 # User-specific files
-*.rsuser
-*.suo
 *.user
-*.userosscache
-*.sln.docstates
+*.suo
+
+# Secrets and credentials - DO NOT COMMIT
+serviceAccount.json
+*.pubxml.user
 
 # Build results
 [Dd]ebug/
-[Dd]ebugPublic/
 [Rr]elease/
-[Rr]eleases/
-x64/
-x86/
-[Aa]rm/
-[Aa]rm64/
-bld/
-[Bb]in/
-[Oo]bj/
+
+# Visual Studio code coverage results
+*.coverage
+*.coverage.xml

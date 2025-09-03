@@ -1,63 +1,55 @@
-using Business;
+using Business.Services;
 using Entities;
-using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace WebApi.Controllers
 {
-    [Authorize]
     [ApiController]
     [Route("api/[controller]")]
     public class CategoriasController : ControllerBase
     {
-        private readonly CategoriaService _categoriaService;
+        private readonly CategoriaBusiness _categoriaBusiness;
 
-        public CategoriasController(CategoriaService categoriaService)
+        public CategoriasController(CategoriaBusiness categoriaBusiness)
         {
-            _categoriaService = categoriaService;
+            _categoriaBusiness = categoriaBusiness;
         }
 
         [HttpGet]
-        public async Task<IEnumerable<Categoria>> Get()
+        public async Task<ActionResult<List<Categoria>>> GetAllCategorias()
         {
-            return await _categoriaService.GetAllCategorias();
+            return await _categoriaBusiness.GetAll();
         }
 
         [HttpGet("{id}")]
-        public async Task<ActionResult<Categoria>> Get(string id)
+        public async Task<ActionResult<Categoria>> GetCategoriaById(string id)
         {
-            var categoria = await _categoriaService.GetCategoriaById(id);
-            if (categoria == null)
-            {
-                return NotFound();
-            }
-            return Ok(categoria);
+            var categoria = await _categoriaBusiness.GetById(id);
+            if (categoria == null) return NotFound();
+            return categoria;
         }
 
         [HttpPost]
-        public async Task<ActionResult<Categoria>> Post([FromBody] Categoria categoria)
+        public async Task<ActionResult<Categoria>> CreateCategoria(Categoria categoria)
         {
-            var id = await _categoriaService.CreateCategoria(categoria);
-            categoria.Id = id;
-            return CreatedAtAction(nameof(Get), new { id }, categoria);
+            await _categoriaBusiness.Create(categoria);
+            return CreatedAtAction(nameof(GetCategoriaById), new { id = categoria.Id }, categoria);
         }
 
         [HttpPut("{id}")]
-        public async Task<IActionResult> Put(string id, [FromBody] Categoria categoria)
+        public async Task<IActionResult> UpdateCategoria(string id, Categoria categoria)
         {
-            if (id != categoria.Id)
-            {
-                return BadRequest();
-            }
-
-            await _categoriaService.UpdateCategoria(categoria);
+            if (id != categoria.Id) return BadRequest();
+            await _categoriaBusiness.Update(id, categoria);
             return NoContent();
         }
 
         [HttpDelete("{id}")]
-        public async Task<IActionResult> Delete(string id)
+        public async Task<IActionResult> DeleteCategoria(string id)
         {
-            await _categoriaService.DeleteCategoria(id);
+            await _categoriaBusiness.Delete(id);
             return NoContent();
         }
     }
