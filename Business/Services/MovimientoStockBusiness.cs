@@ -1,3 +1,4 @@
+using Business.Interfaces;
 using Data.Interfaces;
 using Entities;
 using System;
@@ -7,15 +8,15 @@ using System.Threading.Tasks;
 
 namespace Business.Services
 {
-    public class MovimientoStockBusiness
+    public class MovimientoStockBusiness : IMovimientoStockBusiness
     {
-        private readonly IMovimientoStockRepositorio _movimientoStockRepo;
-        private readonly IProductoRepositorio _productoRepo;
+        private readonly IRepository<MovimientoStock> _movimientoStockRepo;
+        private readonly IProductoBusiness _productoBusiness;
 
-        public MovimientoStockBusiness(IMovimientoStockRepositorio movimientoStockRepo, IProductoRepositorio productoRepo)
+        public MovimientoStockBusiness(IRepository<MovimientoStock> movimientoStockRepo, IProductoBusiness productoBusiness)
         {
             _movimientoStockRepo = movimientoStockRepo;
-            _productoRepo = productoRepo;
+            _productoBusiness = productoBusiness;
         }
 
         public async Task<string> RegistrarMovimiento(MovimientoStock movimiento)
@@ -24,7 +25,7 @@ namespace Business.Services
             if (movimiento == null) throw new ArgumentNullException(nameof(movimiento));
             if (string.IsNullOrEmpty(movimiento.IdProducto)) throw new ArgumentException("El IdProducto es obligatorio.");
 
-            var producto = await _productoRepo.Get(movimiento.IdProducto);
+            var producto = await _productoBusiness.Get(movimiento.IdProducto);
 
             if (producto == null)
             {
@@ -44,15 +45,14 @@ namespace Business.Services
 
             // Update stock
             producto.Stock += movimiento.Cantidad;
-            await _productoRepo.Update(producto.Id, producto);
+            await _productoBusiness.Update(producto);
 
             // Create movement record
-            var createdMovimiento = await _movimientoStockRepo.Add(movimiento);
-            return createdMovimiento.Id;
+            return await _movimientoStockRepo.Add(movimiento);
         }
 
         public async Task<IEnumerable<MovimientoStock>> ObtenerMovimientosPorProducto(string idProducto)
-        { 
+        {
             var movimientos = await _movimientoStockRepo.GetAll();
             return movimientos.Where(m => m.IdProducto == idProducto);
         }

@@ -1,3 +1,4 @@
+using Business.Interfaces;
 using Data.Interfaces;
 using Entities;
 using System;
@@ -7,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace Business.Services
 {
-    public class ClienteBusiness
+    public class ClienteBusiness : IClienteBusiness
     {
         private readonly IRepositorio<Cliente> _clienteRepo;
 
@@ -22,14 +23,14 @@ namespace Business.Services
             return items.Where(c => c.Activo).ToList();
         }
 
-        public async Task<Cliente?> GetById(string id)
+        public async Task<Cliente?> Get(string id)
         {
             var cliente = await _clienteRepo.Get(id);
             if (cliente == null || !cliente.Activo) return null;
             return cliente;
         }
 
-        public async Task<Cliente> Create(Cliente cliente)
+        public async Task<Cliente> Add(Cliente cliente)
         {
             cliente.Activo = true;
             cliente.FechaCreacion = DateTime.UtcNow;
@@ -44,7 +45,13 @@ namespace Business.Services
 
         public async Task Delete(string id)
         {
-            await _clienteRepo.Delete(id);
+            var cliente = await _clienteRepo.Get(id);
+            if (cliente != null)
+            {
+                cliente.Activo = false;
+                cliente.FechaLog = DateTime.UtcNow;
+                await _clienteRepo.Update(id, cliente);
+            }
         }
     }
 }

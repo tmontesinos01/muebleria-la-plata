@@ -8,6 +8,7 @@
 
 # Secrets and credentials - DO NOT COMMIT
 serviceAccount.json
+firebase-credentials.json
 *.pubxml.user
 
 # Build results

@@ -1,4 +1,4 @@
-using System;
+using Business.Interfaces;
 
 namespace Business.Services
 {
@@ -6,7 +6,7 @@ namespace Business.Services
     /// Gestiona la lógica de negocio relacionada con la facturación y el cálculo de costes.
     /// Inspirado por la necesidad de integrarse con sistemas como tuFacturaApp.
     /// </summary>
-    public class FacturacionBusiness
+    public class FacturacionBusiness : IFacturacionBusiness
     {
         public FacturacionBusiness()
         {

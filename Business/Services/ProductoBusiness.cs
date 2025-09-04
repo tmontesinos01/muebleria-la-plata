@@ -1,44 +1,57 @@
 using Business.Interfaces;
 using Data.Interfaces;
 using Entities;
+using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 
 namespace Business.Services
 {
     public class ProductoBusiness : IProductoBusiness
     {
-        private readonly IProductoRepositorio _productoRepositorio;
+        private readonly IRepository<Producto> _productoRepo;
 
-        public ProductoBusiness(IProductoRepositorio productoRepositorio)
+        public ProductoBusiness(IRepository<Producto> productoRepo)
         {
-            _productoRepositorio = productoRepositorio;
+            _productoRepo = productoRepo;
         }
 
-        public Task<IEnumerable<Producto>> GetAll()
+        public async Task<IEnumerable<Producto>> GetAll()
         {
-            return _productoRepositorio.GetAll();
+            var items = await _productoRepo.GetAll();
+            return items.Where(p => p.Activo).ToList();
         }
 
-        public Task<Producto> Get(string id)
+        public async Task<Producto> Get(string id)
         {
-            return _productoRepositorio.Get(id);
+            var producto = await _productoRepo.Get(id);
+            if (producto == null || !producto.Activo) return null;
+            return producto;
         }
 
         public async Task<string> Add(Producto producto)
         {
-            var newProducto = await _productoRepositorio.Add(producto);
-            return newProducto.Id;
+            producto.Activo = true;
+            producto.FechaCreacion = DateTime.UtcNow;
+            return await _productoRepo.Add(producto);
         }
 
-        public Task Update(Producto producto)
+        public async Task Update(Producto producto)
         {
-            return _productoRepositorio.Update(producto.Id, producto);
+            producto.FechaLog = DateTime.UtcNow;
+            await _productoRepo.Update(producto);
         }
 
-        public Task Delete(string id)
+        public async Task Delete(string id)
         {
-            return _productoRepositorio.Delete(id);
+            var producto = await _productoRepo.Get(id);
+            if (producto != null)
+            {
+                producto.Activo = false;
+                producto.FechaLog = DateTime.UtcNow;
+                await _productoRepo.Update(producto);
+            }
         }
     }
 }
