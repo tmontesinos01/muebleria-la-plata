@@ -61,20 +61,7 @@ builder.Services.AddSwaggerGen(c =>
 // Firebase Configuration
 var firebaseProjectId = builder.Configuration["Firebase:ProjectId"];
 
-GoogleCredential credential;
-// In production, use the environment variable. For local development, it will fall back to the JSON file.
-var firebaseCredentialsJson = Environment.GetEnvironmentVariable("FIREBASE_CREDENTIALS_JSON");
-
-if (!string.IsNullOrEmpty(firebaseCredentialsJson))
-{
-    credential = GoogleCredential.FromJson(firebaseCredentialsJson);
-}
-else
-{
-    // Fallback for local development
-    var credentialsPath = "firebase-credentials.json";
-    credential = GoogleCredential.FromFile(credentialsPath);
-}
+GoogleCredential credential = await GoogleCredential.GetApplicationDefaultAsync();
 
 builder.Services.AddSingleton(FirebaseApp.Create(new AppOptions()
 {
@@ -101,12 +88,7 @@ builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
     });
 
 // Business Services
-builder.Services.AddScoped<IFirebaseStorageService>(provider =>
-{
-    var storageClient = provider.GetRequiredService<StorageClient>();
-    var bucketName = builder.Configuration["Firebase:StorageBucket"];
-    return new FirebaseStorageService(storageClient, bucketName);
-});
+builder.Services.AddScoped<IFirebaseStorageService, FirebaseStorageService>();
 builder.Services.AddScoped<IProductoBusiness, ProductoBusiness>();
 builder.Services.AddScoped<IClienteBusiness, ClienteBusiness>();
 builder.Services.AddScoped<ICategoriaBusiness, CategoriaBusiness>();

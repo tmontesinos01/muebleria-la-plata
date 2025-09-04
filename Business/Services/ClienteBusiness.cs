@@ -142,7 +142,7 @@ namespace Business.Services
         private ClienteFacturacionDTO MapearClienteParaFacturacion(ValidarClienteResponseDTO afipResponse, ValidarClienteRequestDTO request)
         {
             // Verificar si hay errores en la respuesta de AFIP
-            if (afipResponse.error == "S" || !string.IsNullOrEmpty(afipResponse.errores?.FirstOrDefault()))
+            if (afipResponse.error == "S" || (afipResponse.errores != null && afipResponse.errores.Any()))
             {
                 return new ClienteFacturacionDTO
                 {

@@ -104,24 +104,33 @@ namespace Business.Services
                 {
                     var responseContent = await response.Content.ReadAsStringAsync();
                     var tusFacturasResponse = JsonSerializer.Deserialize<TusFacturasResponseDTO>(responseContent);
-                    
-                    // Mapear la respuesta exitosa
-                    return new EmitirFacturaResponseDTO
-                    {
-                        exito = true,
-                        mensaje = "Factura emitida correctamente",
-                        factura = new FacturaEmitidaDTO
+
+                    if (tusFacturasResponse != null) {
+                        // Mapear la respuesta exitosa
+                        return new EmitirFacturaResponseDTO
                         {
-                            numero_factura = tusFacturasResponse.numero_factura,
-                            cae = tusFacturasResponse.cae,
-                            fecha_vencimiento_cae = tusFacturasResponse.fecha_vencimiento_cae,
-                            total = tusFacturasResponse.total,
-                            url_pdf = tusFacturasResponse.url_pdf,
-                            tipo_comprobante = request.tipo_comprobante,
-                            punto_venta = puntoVenta
-                        },
-                        errores = new List<string>()
-                    };
+                            exito = true,
+                            mensaje = "Factura emitida correctamente",
+                            factura = new FacturaEmitidaDTO
+                            {
+                                numero_factura = tusFacturasResponse.numero_factura,
+                                cae = tusFacturasResponse.cae,
+                                fecha_vencimiento_cae = tusFacturasResponse.fecha_vencimiento_cae,
+                                total = tusFacturasResponse.total,
+                                url_pdf = tusFacturasResponse.url_pdf,
+                                tipo_comprobante = request.tipo_comprobante,
+                                punto_venta = puntoVenta
+                            },
+                            errores = new List<string>()
+                        };
+                    } else {
+                         return new EmitirFacturaResponseDTO
+                        {
+                            exito = false,
+                            mensaje = "Error al deserializar la respuesta de TusFacturasAPP",
+                            errores = new List<string> { responseContent }
+                        };
+                    }
                 }
                 else
                 {

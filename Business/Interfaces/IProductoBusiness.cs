@@ -7,7 +7,7 @@ namespace Business.Interfaces
     public interface IProductoBusiness
     {
         Task<IEnumerable<Producto>> GetAll();
-        Task<Producto> Get(string id);
+        Task<Producto?> Get(string id);
         Task<string> Add(Producto producto);
         Task Update(Producto producto);
         Task Delete(string id);

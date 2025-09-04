@@ -15,7 +15,7 @@ namespace Scripts.Produccion
             {
                 // Inicializar Firestore con credenciales
                 GoogleCredential credential = GoogleCredential.FromFile("firebase-credentials.json");
-                FirestoreDb db = FirestoreDb.Create("muebleria", new FirestoreClientBuilder { Credential = credential }.Build());
+                FirestoreDb db = new FirestoreDbBuilder { ProjectId = "muebleria-la-plata", DatabaseId = "muebleria", Credential = credential }.Build();
                 
                 Console.WriteLine("=====================================================");
                 Console.WriteLine("Script de Inserciones para Muebleria La Plata");

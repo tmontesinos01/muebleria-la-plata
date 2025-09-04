@@ -32,7 +32,7 @@ namespace Business.Services
             await _repository.Delete(id);
         }
 
-        public async Task<Usuario> Get(string id)
+        public async Task<Usuario?> Get(string id)
         {
             return await _repository.Get(id);
         }
@@ -132,7 +132,7 @@ namespace Business.Services
                 {
                     success = false,
                     message = $"Error interno del servidor: {ex.Message}",
-                    data = null
+                    data = new AuthDataDTO() 
                 };
             }
         }
@@ -146,7 +146,7 @@ namespace Business.Services
             var claims = new[]
             {
                 new Claim(ClaimTypes.NameIdentifier, usuario.Id),
-                new Claim(ClaimTypes.Email, usuario.Email),
+                new Claim(ClaimTypes.Email, usuario.Email ?? string.Empty),
                 new Claim(ClaimTypes.Name, $"{usuario.Nombre} {usuario.Apellido}"),
                 new Claim("IdPerfil", usuario.IdPerfil ?? "0"),
                 new Claim("Activo", usuario.Activo.ToString())

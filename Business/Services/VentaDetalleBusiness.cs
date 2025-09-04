@@ -35,7 +35,7 @@ namespace Business.Services
             }
         }
 
-        public async Task<VentaDetalle> Get(string id)
+        public async Task<VentaDetalle?> Get(string id)
         {
             return await _repository.Get(id);
         }

@@ -1,6 +1,7 @@
 using Business.Interfaces;
 using Google.Cloud.Storage.V1;
 using Microsoft.AspNetCore.Http;
+using Microsoft.Extensions.Configuration;
 using System;
 using System.IO;
 using System.Threading.Tasks;
@@ -12,10 +13,10 @@ namespace Business
         private readonly StorageClient _storageClient;
         private readonly string _bucketName;
 
-        public FirebaseStorageService(StorageClient storageClient, string bucketName)
+        public FirebaseStorageService(StorageClient storageClient, IConfiguration configuration)
         {
             _storageClient = storageClient;
-            _bucketName = bucketName;
+            _bucketName = configuration.GetValue<string>("Firebase:StorageBucket");
         }
 
         public async Task<string> UploadFileAsync(IFormFile file, string destinationPath)

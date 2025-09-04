@@ -8,8 +8,13 @@ using Data.Interfaces;
 
 namespace Business.Interfaces
 {
-    public interface IClienteBusiness : IRepository<Cliente>
+    public interface IClienteBusiness
     {
+        Task<IEnumerable<Cliente>> GetAll();
+        Task<Cliente?> Get(string id);
+        Task<string> Add(Cliente cliente);
+        Task Update(Cliente cliente);
+        Task Delete(string id);
         Task<ClienteFacturacionDTO> ValidarClienteAFIP(ValidarClienteRequestDTO request);
     }
 }
