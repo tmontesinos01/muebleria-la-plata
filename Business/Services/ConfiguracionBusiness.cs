@@ -53,5 +53,33 @@ namespace Business.Services
                 await _configuracionRepo.Update(configuracion);
             }
         }
+
+        public async Task<string> GetTusFacturasUserToken()
+        {
+            var configuraciones = await GetAll();
+            var config = configuraciones.FirstOrDefault(c => c.Clave == "TUSFACTURAS_USER_TOKEN");
+            return config?.Valor ?? "";
+        }
+
+        public async Task<string> GetTusFacturasApiKey()
+        {
+            var configuraciones = await GetAll();
+            var config = configuraciones.FirstOrDefault(c => c.Clave == "TUSFACTURAS_API_KEY");
+            return config?.Valor ?? "";
+        }
+
+        public async Task<string> GetTusFacturasApiToken()
+        {
+            var configuraciones = await GetAll();
+            var config = configuraciones.FirstOrDefault(c => c.Clave == "TUSFACTURAS_API_TOKEN");
+            return config?.Valor ?? "";
+        }
+
+        public async Task<string> GetTusFacturasBaseUrl()
+        {
+            var configuraciones = await GetAll();
+            var config = configuraciones.FirstOrDefault(c => c.Clave == "TUSFACTURAS_BASE_URL");
+            return config?.Valor ?? "https://www.tusfacturas.app/app/api/v2";
+        }
     }
 }

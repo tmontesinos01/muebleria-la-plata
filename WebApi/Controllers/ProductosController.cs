@@ -23,14 +23,14 @@ namespace WebApi.Controllers
             _imagenService = imagenService;
         }
 
-        [HttpGet]
+        [HttpGet("obtener-todos")]
         public async Task<ActionResult<List<Producto>>> GetProductos()
         {
             var productos = await _productoBusiness.GetAll();
             return productos.ToList();
         }
 
-        [HttpGet("{id}")]
+        [HttpGet("obtener/{id}")]
         public async Task<ActionResult<Producto>> GetProducto(string id)
         {
             var producto = await _productoBusiness.Get(id);
@@ -41,7 +41,7 @@ namespace WebApi.Controllers
             return producto;
         }
 
-        [HttpPost]
+        [HttpPost("crear")]
         public async Task<ActionResult<Producto>> PostProducto([FromForm] Producto producto, IFormFile imagen)
         {
             if (imagen != null && imagen.Length > 0)
@@ -56,7 +56,7 @@ namespace WebApi.Controllers
             return CreatedAtAction(nameof(GetProducto), new { id = producto.Id }, producto);
         }
 
-        [HttpPut("{id}")]
+        [HttpPut("actualizar/{id}")]
         public async Task<IActionResult> PutProducto(string id, [FromForm] Producto producto, IFormFile? imagen)
         {
             if (id != producto.Id)
@@ -98,7 +98,7 @@ namespace WebApi.Controllers
             return NoContent();
         }
 
-        [HttpDelete("{id}")]
+        [HttpDelete("eliminar/{id}")]
         public async Task<IActionResult> DeleteProducto(string id)
         {
             var producto = await _productoBusiness.Get(id);

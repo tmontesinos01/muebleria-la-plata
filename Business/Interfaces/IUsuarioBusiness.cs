@@ -1,4 +1,5 @@
 using Entities;
+using Entities.DTOs;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
@@ -11,5 +12,6 @@ namespace Business.Interfaces
         Task<string> Add(Usuario entity);
         Task Update(Usuario entity);
         Task Delete(string id);
+        Task<AuthResponseDTO> AutenticarUsuario(AuthRequestDTO authRequest);
     }
 }

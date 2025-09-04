@@ -1,4 +1,5 @@
 using Entities;
+using Entities.DTOs;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,7 +10,6 @@ namespace Business.Interfaces
 {
     public interface IClienteBusiness : IRepository<Cliente>
     {
-        // Future customer-specific business methods can be added here.
-        
+        Task<ClienteFacturacionDTO> ValidarClienteAFIP(ValidarClienteRequestDTO request);
     }
 }

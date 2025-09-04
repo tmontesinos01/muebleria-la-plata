@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 namespace WebApi.Controllers
 {
     [ApiController]
-    [Route("api/[controller]")]
+    [Route("[controller]")]
     public class VentasController : ControllerBase
     {
         private readonly IVentaBusiness _ventaBusiness;
@@ -20,7 +20,7 @@ namespace WebApi.Controllers
             _ventaDetalleBusiness = ventaDetalleBusiness;
         }
 
-        [HttpGet("{id}")]
+        [HttpGet("obtener/{id}")]
         public async Task<IActionResult> ObtenerVenta(string id)
         {
             var venta = await _ventaBusiness.Get(id);
@@ -34,14 +34,14 @@ namespace WebApi.Controllers
             return Ok(venta);
         }
 
-        [HttpGet]
+        [HttpGet("obtener-todos")]
         public async Task<IActionResult> GetAll()
         {
             var ventas = await _ventaBusiness.GetAll();
             return Ok(ventas);
         }
 
-        [HttpPut("{id}")]
+        [HttpPut("actualizar/{id}")]
         public async Task<IActionResult> Update(string id, [FromBody] Venta venta)
         {
             if (venta == null || venta.Id != id)
@@ -53,7 +53,7 @@ namespace WebApi.Controllers
             return NoContent();
         }
 
-        [HttpDelete("{id}")]
+        [HttpDelete("eliminar/{id}")]
         public async Task<IActionResult> Delete(string id)
         {
             await _ventaBusiness.Delete(id);

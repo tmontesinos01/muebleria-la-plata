@@ -18,14 +18,14 @@ namespace WebApi.Controllers
             _tipoComprobanteBusiness = tipoComprobanteBusiness;
         }
 
-        [HttpGet]
+        [HttpGet("obtener-todos")]
         public async Task<ActionResult<List<TipoComprobante>>> GetAllTiposComprobante()
         {
             var datos = await _tipoComprobanteBusiness.GetAll();
             return datos.ToList();
         }
 
-        [HttpGet("{id}")]
+        [HttpGet("obtener/{id}")]
         public async Task<ActionResult<TipoComprobante>> GetTipoComprobanteById(string id)
         {
             var tipoComprobante = await _tipoComprobanteBusiness.Get(id);
@@ -33,21 +33,21 @@ namespace WebApi.Controllers
             return tipoComprobante;
         }
 
-        [HttpPost]
+        [HttpPost("crear")]
         public async Task<ActionResult<TipoComprobante>> CreateTipoComprobante(TipoComprobante tipoComprobante)
         {
             await _tipoComprobanteBusiness.Add(tipoComprobante);
             return CreatedAtAction(nameof(GetTipoComprobanteById), new { id = tipoComprobante.Id }, tipoComprobante);
         }
 
-        [HttpPut("{id}")]
+        [HttpPut("actualizar/{id}")]
         public async Task<IActionResult> UpdateTipoComprobante(TipoComprobante tipoComprobante)
         {
             await _tipoComprobanteBusiness.Update(tipoComprobante);
             return NoContent();
         }
 
-        [HttpDelete("{id}")]
+        [HttpDelete("eliminar/{id}")]
         public async Task<IActionResult> DeleteTipoComprobante(string id)
         {
             await _tipoComprobanteBusiness.Delete(id);

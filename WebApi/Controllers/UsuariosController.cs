@@ -1,5 +1,6 @@
 using Business.Interfaces;
 using Entities;
+using Entities.DTOs;
 using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
 using System.Threading.Tasks;
@@ -17,14 +18,14 @@ namespace WebApi.Controllers
             _usuarioBusiness = usuarioBusiness;
         }
 
-        [HttpGet]
+        [HttpGet("obtener-todos")]
         public async Task<ActionResult<IEnumerable<Usuario>>> GetAllUsuarios()
         {
             var items = await _usuarioBusiness.GetAll();
             return Ok(items);
         }
 
-        [HttpGet("{id}")]
+        [HttpGet("obtener/{id}")]
         public async Task<ActionResult<Usuario>> GetUsuarioById(string id)
         {
             var usuario = await _usuarioBusiness.Get(id);
@@ -32,7 +33,7 @@ namespace WebApi.Controllers
             return Ok(usuario);
         }
 
-        [HttpPost]
+        [HttpPost("crear")]
         public async Task<ActionResult<Usuario>> CreateUsuario(Usuario usuario)
         {
             var newId = await _usuarioBusiness.Add(usuario);
@@ -40,7 +41,7 @@ namespace WebApi.Controllers
             return CreatedAtAction(nameof(GetUsuarioById), new { id = newId }, usuario);
         }
 
-        [HttpPut("{id}")]
+        [HttpPut("actualizar/{id}")]
         public async Task<IActionResult> UpdateUsuario(string id, Usuario usuario)
         {
             if (id != usuario.Id) return BadRequest();
@@ -48,11 +49,18 @@ namespace WebApi.Controllers
             return NoContent();
         }
 
-        [HttpDelete("{id}")]
+        [HttpDelete("eliminar/{id}")]
         public async Task<IActionResult> DeleteUsuario(string id)
         {
             await _usuarioBusiness.Delete(id);
             return NoContent();
+        }
+
+        [HttpPost("autenticar")]
+        public async Task<ActionResult<AuthResponseDTO>> Autenticar([FromBody] AuthRequestDTO authRequest)
+        {
+            var resultado = await _usuarioBusiness.AutenticarUsuario(authRequest);
+            return Ok(resultado);
         }
     }
 }

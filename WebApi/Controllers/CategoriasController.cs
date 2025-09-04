@@ -17,14 +17,14 @@ namespace WebApi.Controllers
             _categoriaBusiness = categoriaBusiness;
         }
 
-        [HttpGet]
+        [HttpGet("obtener-todos")]
         public async Task<ActionResult<IEnumerable<Categoria>>> GetAllCategorias()
         {
             var items = await _categoriaBusiness.GetAll();
             return Ok(items);
         }
 
-        [HttpGet("{id}")]
+        [HttpGet("obtener/{id}")]
         public async Task<ActionResult<Categoria>> GetCategoriaById(string id)
         {
             var categoria = await _categoriaBusiness.Get(id);
@@ -32,7 +32,7 @@ namespace WebApi.Controllers
             return Ok(categoria);
         }
 
-        [HttpPost]
+        [HttpPost("crear")]
         public async Task<ActionResult<Categoria>> CreateCategoria(Categoria categoria)
         {
             var newId = await _categoriaBusiness.Add(categoria);
@@ -40,7 +40,7 @@ namespace WebApi.Controllers
             return CreatedAtAction(nameof(GetCategoriaById), new { id = newId }, categoria);
         }
 
-        [HttpPut("{id}")]
+        [HttpPut("actualizar/{id}")]
         public async Task<IActionResult> UpdateCategoria(string id, Categoria categoria)
         {
             if (id != categoria.Id) return BadRequest();
@@ -48,7 +48,7 @@ namespace WebApi.Controllers
             return NoContent();
         }
 
-        [HttpDelete("{id}")]
+        [HttpDelete("eliminar/{id}")]
         public async Task<IActionResult> DeleteCategoria(string id)
         {
             await _categoriaBusiness.Delete(id);

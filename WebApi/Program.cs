@@ -16,6 +16,9 @@ var builder = WebApplication.CreateBuilder(args);
 // Add services to the container.
 builder.Services.AddControllers();
 
+// Add HttpClient for external API calls
+builder.Services.AddHttpClient();
+
 // Add this to make all routes lowercase
 builder.Services.AddRouting(options => options.LowercaseUrls = true);
 

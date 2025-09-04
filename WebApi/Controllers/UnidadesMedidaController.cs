@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 namespace WebApi.Controllers
 {
     [ApiController]
-    [Route("api/[controller]")]
+    [Route("[controller]")]
     public class UnidadesMedidaController : ControllerBase
     {
         private readonly IUnidadMedidaBusiness _unidadMedidaBusiness;
@@ -18,14 +18,14 @@ namespace WebApi.Controllers
             _unidadMedidaBusiness = unidadMedidaBusiness;
         }
 
-        [HttpGet]
+        [HttpGet("obtener-todos")]
         public async Task<ActionResult<List<UnidadMedida>>> GetAllUnidadesMedida()
         {
             var unidadesMedida = await _unidadMedidaBusiness.GetAll();
             return unidadesMedida.ToList();
         }
 
-        [HttpGet("{id}")]
+        [HttpGet("obtener/{id}")]
         public async Task<ActionResult<UnidadMedida>> GetUnidadMedidaById(string id)
         {
             var unidadMedida = await _unidadMedidaBusiness.Get(id);
@@ -33,21 +33,21 @@ namespace WebApi.Controllers
             return unidadMedida;
         }
 
-        [HttpPost]
+        [HttpPost("crear")]
         public async Task<ActionResult<UnidadMedida>> CreateUnidadMedida(UnidadMedida unidadMedida)
         {
             await _unidadMedidaBusiness.Add(unidadMedida);
             return CreatedAtAction(nameof(GetUnidadMedidaById), new { id = unidadMedida.Id }, unidadMedida);
         }
 
-        [HttpPut("{id}")]
+        [HttpPut("actualizar/{id}")]
         public async Task<IActionResult> UpdateUnidadMedida(UnidadMedida unidadMedida)
         {
             await _unidadMedidaBusiness.Update(unidadMedida);
             return NoContent();
         }
 
-        [HttpDelete("{id}")]
+        [HttpDelete("eliminar/{id}")]
         public async Task<IActionResult> DeleteUnidadMedida(string id)
         {
             await _unidadMedidaBusiness.Delete(id);
