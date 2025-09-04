@@ -1,0 +1,15 @@
+/home/user/muebleria-la-plata/test/TestProject/bin/Debug/net9.0/TestProject
+/home/user/muebleria-la-plata/test/TestProject/bin/Debug/net9.0/TestProject.deps.json
+/home/user/muebleria-la-plata/test/TestProject/bin/Debug/net9.0/TestProject.runtimeconfig.json
+/home/user/muebleria-la-plata/test/TestProject/bin/Debug/net9.0/TestProject.dll
+/home/user/muebleria-la-plata/test/TestProject/bin/Debug/net9.0/TestProject.pdb
+/home/user/muebleria-la-plata/test/TestProject/obj/Debug/net9.0/TestProject.GeneratedMSBuildEditorConfig.editorconfig
+/home/user/muebleria-la-plata/test/TestProject/obj/Debug/net9.0/TestProject.AssemblyInfoInputs.cache
+/home/user/muebleria-la-plata/test/TestProject/obj/Debug/net9.0/TestProject.AssemblyInfo.cs
+/home/user/muebleria-la-plata/test/TestProject/obj/Debug/net9.0/TestProject.csproj.CoreCompileInputs.cache
+/home/user/muebleria-la-plata/test/TestProject/obj/Debug/net9.0/TestProject.sourcelink.json
+/home/user/muebleria-la-plata/test/TestProject/obj/Debug/net9.0/TestProject.dll
+/home/user/muebleria-la-plata/test/TestProject/obj/Debug/net9.0/refint/TestProject.dll
+/home/user/muebleria-la-plata/test/TestProject/obj/Debug/net9.0/TestProject.pdb
+/home/user/muebleria-la-plata/test/TestProject/obj/Debug/net9.0/TestProject.genruntimeconfig.cache
+/home/user/muebleria-la-plata/test/TestProject/obj/Debug/net9.0/ref/TestProject.dll

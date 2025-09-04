@@ -1,0 +1,6 @@
+/home/user/muebleria-la-plata/obj/Debug/net8.0/myapp.GeneratedMSBuildEditorConfig.editorconfig
+/home/user/muebleria-la-plata/obj/Debug/net8.0/myapp.AssemblyInfoInputs.cache
+/home/user/muebleria-la-plata/obj/Debug/net8.0/myapp.AssemblyInfo.cs
+/home/user/muebleria-la-plata/obj/Debug/net8.0/myapp.csproj.CoreCompileInputs.cache
+/home/user/muebleria-la-plata/obj/Debug/net8.0/myapp.MvcApplicationPartsAssemblyInfo.cache
+/home/user/muebleria-la-plata/obj/Debug/net8.0/myapp.sourcelink.json
