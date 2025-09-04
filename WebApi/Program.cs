@@ -1,3 +1,4 @@
+using System;
 using Business.Interfaces;
 using Business.Services;
 using Data.Interfaces;
@@ -59,8 +60,21 @@ builder.Services.AddSwaggerGen(c =>
 
 // Firebase Configuration
 var firebaseProjectId = builder.Configuration["Firebase:ProjectId"];
-var credentialsPath = "firebase-credentials.json";
-var credential = GoogleCredential.FromFile(credentialsPath);
+
+GoogleCredential credential;
+// In production, use the environment variable. For local development, it will fall back to the JSON file.
+var firebaseCredentialsJson = Environment.GetEnvironmentVariable("FIREBASE_CREDENTIALS_JSON");
+
+if (!string.IsNullOrEmpty(firebaseCredentialsJson))
+{
+    credential = GoogleCredential.FromJson(firebaseCredentialsJson);
+}
+else
+{
+    // Fallback for local development
+    var credentialsPath = "firebase-credentials.json";
+    credential = GoogleCredential.FromFile(credentialsPath);
+}
 
 builder.Services.AddSingleton(FirebaseApp.Create(new AppOptions()
 {
