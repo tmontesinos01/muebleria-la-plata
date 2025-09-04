@@ -87,7 +87,12 @@ builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
     });
 
 // Business Services
-builder.Services.AddScoped<IFirebaseStorageService, FirebaseStorageService>();
+builder.Services.AddScoped<IFirebaseStorageService>(provider =>
+{
+    var storageClient = provider.GetRequiredService<StorageClient>();
+    var bucketName = builder.Configuration["Firebase:StorageBucket"];
+    return new FirebaseStorageService(storageClient, bucketName);
+});
 builder.Services.AddScoped<IProductoBusiness, ProductoBusiness>();
 builder.Services.AddScoped<IClienteBusiness, ClienteBusiness>();
 builder.Services.AddScoped<ICategoriaBusiness, CategoriaBusiness>();

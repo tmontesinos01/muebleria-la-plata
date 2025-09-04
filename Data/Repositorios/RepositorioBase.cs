@@ -12,9 +12,9 @@ namespace Data.Repositorios
         protected readonly FirestoreDb _firestoreDb;
         protected readonly CollectionReference _collection;
 
-        protected RepositorioBase(string collectionName)
+        protected RepositorioBase(string collectionName, FirestoreDb firestoreDb)
         {
-            _firestoreDb = FirestoreDb.Create("vass-net-core-pruebas");
+            _firestoreDb = firestoreDb;
             _collection = _firestoreDb.Collection(collectionName);
         }
 

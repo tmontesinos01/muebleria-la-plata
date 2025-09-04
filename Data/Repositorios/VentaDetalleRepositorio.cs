@@ -9,7 +9,7 @@ namespace Data.Repositorios
 {
     public class VentaDetalleRepositorio : RepositorioBase<VentaDetalle>, IVentaDetalleRepositorio
     {
-        public VentaDetalleRepositorio() : base("ventasDetalle")
+        public VentaDetalleRepositorio(FirestoreDb firestoreDb) : base("ventasDetalle", firestoreDb)
         {
         }
 

@@ -64,6 +64,14 @@
             "Google.Cloud.Storage.V1": {
               "target": "Package",
               "version": "[4.13.0, )"
+            },
+            "Microsoft.IdentityModel.Tokens": {
+              "target": "Package",
+              "version": "[8.2.1, )"
+            },
+            "System.IdentityModel.Tokens.Jwt": {
+              "target": "Package",
+              "version": "[8.2.1, )"
             }
           },
           "imports": [

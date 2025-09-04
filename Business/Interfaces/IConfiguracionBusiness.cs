@@ -10,5 +10,6 @@ namespace Business.Interfaces
         Task<string> GetTusFacturasApiKey();
         Task<string> GetTusFacturasApiToken();
         Task<string> GetTusFacturasBaseUrl();
+        Task<string> GetPuntoVentaDefault();
     }
 }

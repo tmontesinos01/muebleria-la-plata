@@ -17,14 +17,14 @@ namespace WebApi.Controllers
             _configuracionBusiness = configuracionBusiness;
         }
 
-        [HttpGet]
+        [HttpGet("obtener-todos")]
         public async Task<ActionResult<IEnumerable<Configuracion>>> GetAllConfiguraciones()
         {
             var items = await _configuracionBusiness.GetAll();
             return Ok(items);
         }
 
-        [HttpGet("{id}")]
+        [HttpGet("obtener/{id}")]
         public async Task<ActionResult<Configuracion>> GetConfiguracionById(string id)
         {
             var configuracion = await _configuracionBusiness.Get(id);
@@ -32,7 +32,7 @@ namespace WebApi.Controllers
             return Ok(configuracion);
         }
 
-        [HttpPost]
+        [HttpPost("crear")]
         public async Task<ActionResult<Configuracion>> CreateConfiguracion(Configuracion configuracion)
         {
             var newId = await _configuracionBusiness.Add(configuracion);
@@ -40,7 +40,7 @@ namespace WebApi.Controllers
             return CreatedAtAction(nameof(GetConfiguracionById), new { id = newId }, configuracion);
         }
 
-        [HttpPut("{id}")]
+        [HttpPut("actualizar/{id}")]
         public async Task<IActionResult> UpdateConfiguracion(string id, Configuracion configuracion)
         {
             if (id != configuracion.Id) return BadRequest();
@@ -48,7 +48,7 @@ namespace WebApi.Controllers
             return NoContent();
         }
 
-        [HttpDelete("{id}")]
+        [HttpDelete("eliminar/{id}")]
         public async Task<IActionResult> DeleteConfiguracion(string id)
         {
             await _configuracionBusiness.Delete(id);

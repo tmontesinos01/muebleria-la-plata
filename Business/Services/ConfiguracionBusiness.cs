@@ -81,5 +81,12 @@ namespace Business.Services
             var config = configuraciones.FirstOrDefault(c => c.Clave == "TUSFACTURAS_BASE_URL");
             return config?.Valor ?? "https://www.tusfacturas.app/app/api/v2";
         }
+
+        public async Task<string> GetPuntoVentaDefault()
+        {
+            var configuraciones = await GetAll();
+            var config = configuraciones.FirstOrDefault(c => c.Clave == "PUNTO_VENTA_DEFAULT");
+            return config?.Valor ?? "0001";
+        }
     }
 }
