@@ -1,3 +1,4 @@
+using Business.Interfaces;
 using Data.Interfaces;
 using Entities;
 using System;
@@ -7,44 +8,50 @@ using System.Threading.Tasks;
 
 namespace Business.Services
 {
-    public class UnidadMedidaBusiness
-    {
-        private readonly IRepositorio<UnidadMedida> _unidadMedidaRepo;
+    public class UnidadMedidaBusiness : IUnidadMedidaBusiness
+    { 
+        private readonly IRepository<UnidadMedida> _repository;
 
-        public UnidadMedidaBusiness(IRepositorio<UnidadMedida> unidadMedidaRepo)
+        public UnidadMedidaBusiness(IRepository<UnidadMedida> repository)
         {
-            _unidadMedidaRepo = unidadMedidaRepo;
+            _repository = repository;
         }
 
-        public async Task<List<UnidadMedida>> GetAll()
+        public async Task<string> Add(UnidadMedida entity)
         {
-            var items = await _unidadMedidaRepo.GetAll();
-            return items.Where(u => u.Activo).ToList();
-        }
-
-        public async Task<UnidadMedida?> GetById(string id)
-        {
-            var unidadMedida = await _unidadMedidaRepo.Get(id);
-            if (unidadMedida == null || !unidadMedida.Activo) return null;
-            return unidadMedida;
-        }
-
-        public async Task<UnidadMedida> Create(UnidadMedida unidadMedida)
-        {
-            unidadMedida.Activo = true;
-            unidadMedida.FechaCreacion = DateTime.UtcNow;
-            return await _unidadMedidaRepo.Add(unidadMedida);
-        }
-
-        public async Task Update(string id, UnidadMedida unidadMedida)
-        {
-            unidadMedida.FechaLog = DateTime.UtcNow;
-            await _unidadMedidaRepo.Update(id, unidadMedida);
+            entity.Activo = true;
+            entity.FechaCreacion = DateTime.UtcNow;
+            return await _repository.Add(entity);
         }
 
         public async Task Delete(string id)
         {
-            await _unidadMedidaRepo.Delete(id);
+            var entity = await _repository.Get(id);
+            if (entity != null)
+            {
+                entity.Activo = false;
+                entity.FechaLog = DateTime.UtcNow;
+                await _repository.Update(entity);
+            }
+        }
+
+        public async Task<UnidadMedida?> Get(string id)
+        {
+            var item = await _repository.Get(id);
+            if (item != null && !item.Activo) return null;
+            return item;
+        }
+
+        public async Task<IEnumerable<UnidadMedida>> GetAll()
+        {
+            var items = await _repository.GetAll();
+            return items.Where(u => u.Activo);
+        }
+
+        public async Task Update(UnidadMedida entity)
+        {
+            entity.FechaLog = DateTime.UtcNow;
+            await _repository.Update(entity);
         }
     }
 }

@@ -8,7 +8,7 @@ namespace WebApi.Controllers
 {
     [Authorize]
     [ApiController]
-    [Route("api/[controller]")]
+    [Route("[controller]")]
     public class StorageController : ControllerBase
     {
         private readonly IFirebaseStorageService _firebaseStorageService;

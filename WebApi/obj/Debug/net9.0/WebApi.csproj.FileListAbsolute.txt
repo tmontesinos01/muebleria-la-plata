@@ -106,3 +106,4 @@
 /home/user/muebleria-la-plata/WebApi/bin/Debug/net9.0/Common.dll
 /home/user/muebleria-la-plata/WebApi/bin/Debug/net9.0/Common.pdb
 /home/user/muebleria-la-plata/WebApi/bin/Debug/net9.0/serviceAccount.json
+/home/user/muebleria-la-plata/WebApi/bin/Debug/net9.0/firebase-credentials.json

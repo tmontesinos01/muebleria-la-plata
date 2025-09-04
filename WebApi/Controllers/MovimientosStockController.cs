@@ -1,4 +1,4 @@
-using Business.Services;
+using Business.Interfaces;
 using Entities;
 using Microsoft.AspNetCore.Mvc;
 using System;
@@ -8,12 +8,12 @@ using System.Threading.Tasks;
 namespace WebApi.Controllers
 {
     [ApiController]
-    [Route("api/[controller]")]
+    [Route("[controller]")]
     public class MovimientosStockController : ControllerBase
     {
-        private readonly MovimientoStockBusiness _movimientoStockBusiness;
+        private readonly IMovimientoStockBusiness _movimientoStockBusiness;
 
-        public MovimientosStockController(MovimientoStockBusiness movimientoStockBusiness)
+        public MovimientosStockController(IMovimientoStockBusiness movimientoStockBusiness)
         {
             _movimientoStockBusiness = movimientoStockBusiness;
         }

@@ -1,3 +1,4 @@
+using Business.Interfaces;
 using Data.Interfaces;
 using Entities;
 using System;
@@ -7,44 +8,50 @@ using System.Threading.Tasks;
 
 namespace Business.Services
 {
-    public class PerfilBusiness
+    public class PerfilBusiness : IPerfilBusiness
     {
-        private readonly IRepositorio<Perfil> _perfilRepo;
+        private readonly IRepository<Perfil> _repository;
 
-        public PerfilBusiness(IRepositorio<Perfil> perfilRepo)
+        public PerfilBusiness(IRepository<Perfil> repository)
         {
-            _perfilRepo = perfilRepo;
+            _repository = repository;
         }
 
-        public async Task<List<Perfil>> GetAll()
+        public async Task<string> Add(Perfil entity)
         {
-            var items = await _perfilRepo.GetAll();
-            return items.Where(p => p.Activo).ToList();
-        }
-
-        public async Task<Perfil?> GetById(string id)
-        {
-            var perfil = await _perfilRepo.Get(id);
-            if (perfil == null || !perfil.Activo) return null;
-            return perfil;
-        }
-
-        public async Task<Perfil> Create(Perfil perfil)
-        {
-            perfil.Activo = true;
-            perfil.FechaCreacion = DateTime.UtcNow;
-            return await _perfilRepo.Add(perfil);
-        }
-
-        public async Task Update(string id, Perfil perfil)
-        {
-            perfil.FechaLog = DateTime.UtcNow;
-            await _perfilRepo.Update(id, perfil);
+            entity.Activo = true;
+            entity.FechaCreacion = DateTime.UtcNow;
+            return await _repository.Add(entity);
         }
 
         public async Task Delete(string id)
         {
-            await _perfilRepo.Delete(id);
+            var entity = await _repository.Get(id);
+            if (entity != null)
+            {
+                entity.Activo = false;
+                entity.FechaLog = DateTime.UtcNow;
+                await _repository.Update(entity);
+            }
+        }
+
+        public async Task<Perfil?> Get(string id)
+        {
+            var perfil = await _repository.Get(id);
+            if (perfil == null || !perfil.Activo) return null;
+            return perfil;
+        }
+
+        public async Task<IEnumerable<Perfil>> GetAll()
+        {
+            var items = await _repository.GetAll();
+            return items.Where(p => p.Activo);
+        }
+
+        public async Task Update(Perfil entity)
+        {
+            entity.FechaLog = DateTime.UtcNow;
+            await _repository.Update(entity);
         }
     }
 }

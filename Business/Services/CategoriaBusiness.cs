@@ -10,48 +10,49 @@ namespace Business.Services
 {
     public class CategoriaBusiness : ICategoriaBusiness
     {
-        private readonly IRepositorio<Categoria> _categoriaRepo;
+        private readonly IRepository<Categoria> _repository;
 
-        public CategoriaBusiness(IRepositorio<Categoria> categoriaRepo)
+        public CategoriaBusiness(IRepository<Categoria> repository)
         {
-            _categoriaRepo = categoriaRepo;
+            _repository = repository;
         }
 
-        public async Task<List<Categoria>> GetAll()
+        public async Task<string> Add(Categoria entity)
         {
-            var items = await _categoriaRepo.GetAll();
-            return items.Where(c => c.Activo).ToList();
-        }
-
-        public async Task<Categoria?> Get(string id)
-        {
-            var categoria = await _categoriaRepo.Get(id);
-            if (categoria == null || !categoria.Activo) return null;
-            return categoria;
-        }
-
-        public async Task<Categoria> Add(Categoria categoria)
-        {
-            categoria.Activo = true;
-            categoria.FechaCreacion = DateTime.UtcNow;
-            return await _categoriaRepo.Add(categoria);
-        }
-
-        public async Task Update(string id, Categoria categoria)
-        {
-            categoria.FechaLog = DateTime.UtcNow;
-            await _categoriaRepo.Update(id, categoria);
+            entity.Activo = true;
+            entity.FechaCreacion = DateTime.UtcNow;
+            // Correctly return only the ID string
+            return await _repository.Add(entity);
         }
 
         public async Task Delete(string id)
         {
-            var categoria = await _categoriaRepo.Get(id);
-            if (categoria != null)
+            var entity = await _repository.Get(id);
+            if (entity != null)
             {
-                categoria.Activo = false;
-                categoria.FechaLog = DateTime.UtcNow;
-                await _categoriaRepo.Update(id, categoria);
+                entity.Activo = false;
+                entity.FechaLog = DateTime.UtcNow;
+                await _repository.Update(entity);
             }
+        }
+
+        public async Task<Categoria?> Get(string id)
+        {
+            var item = await _repository.Get(id);
+            if (item != null && !item.Activo) return null;
+            return item;
+        }
+
+        public async Task<IEnumerable<Categoria>> GetAll()
+        {
+            var items = await _repository.GetAll();
+            return items.Where(c => c.Activo);
+        }
+
+        public async Task Update(Categoria entity)
+        {
+            entity.FechaLog = DateTime.UtcNow;
+            await _repository.Update(entity);
         }
     }
 }

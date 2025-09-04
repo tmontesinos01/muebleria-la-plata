@@ -1,4 +1,4 @@
-using Business.Services;
+using Business.Interfaces;
 using Entities;
 using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
@@ -7,42 +7,44 @@ using System.Threading.Tasks;
 namespace WebApi.Controllers
 {
     [ApiController]
-    [Route("api/[controller]")]
+    [Route("[controller]")]
     public class ConfiguracionesController : ControllerBase
     {
-        private readonly ConfiguracionBusiness _configuracionBusiness;
+        private readonly IConfiguracionBusiness _configuracionBusiness;
 
-        public ConfiguracionesController(ConfiguracionBusiness configuracionBusiness)
+        public ConfiguracionesController(IConfiguracionBusiness configuracionBusiness)
         {
             _configuracionBusiness = configuracionBusiness;
         }
 
         [HttpGet]
-        public async Task<ActionResult<List<Configuracion>>> GetAllConfiguraciones()
+        public async Task<ActionResult<IEnumerable<Configuracion>>> GetAllConfiguraciones()
         {
-            return await _configuracionBusiness.GetAll();
+            var items = await _configuracionBusiness.GetAll();
+            return Ok(items);
         }
 
         [HttpGet("{id}")]
         public async Task<ActionResult<Configuracion>> GetConfiguracionById(string id)
         {
-            var configuracion = await _configuracionBusiness.GetById(id);
+            var configuracion = await _configuracionBusiness.Get(id);
             if (configuracion == null) return NotFound();
-            return configuracion;
+            return Ok(configuracion);
         }
 
         [HttpPost]
         public async Task<ActionResult<Configuracion>> CreateConfiguracion(Configuracion configuracion)
         {
-            await _configuracionBusiness.Create(configuracion);
-            return CreatedAtAction(nameof(GetConfiguracionById), new { id = configuracion.Id }, configuracion);
+            var newId = await _configuracionBusiness.Add(configuracion);
+            configuracion.Id = newId;
+            return CreatedAtAction(nameof(GetConfiguracionById), new { id = newId }, configuracion);
         }
 
         [HttpPut("{id}")]
         public async Task<IActionResult> UpdateConfiguracion(string id, Configuracion configuracion)
         {
             if (id != configuracion.Id) return BadRequest();
-            await _configuracionBusiness.Update(id, configuracion);
+            await _configuracionBusiness.Update(configuracion);
             return NoContent();
         }
 

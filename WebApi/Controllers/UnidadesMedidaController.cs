@@ -1,7 +1,8 @@
-using Business.Services;
+using Business.Interfaces;
 using Entities;
 using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 
 namespace WebApi.Controllers
@@ -10,9 +11,9 @@ namespace WebApi.Controllers
     [Route("api/[controller]")]
     public class UnidadesMedidaController : ControllerBase
     {
-        private readonly UnidadMedidaBusiness _unidadMedidaBusiness;
+        private readonly IUnidadMedidaBusiness _unidadMedidaBusiness;
 
-        public UnidadesMedidaController(UnidadMedidaBusiness unidadMedidaBusiness)
+        public UnidadesMedidaController(IUnidadMedidaBusiness unidadMedidaBusiness)
         {
             _unidadMedidaBusiness = unidadMedidaBusiness;
         }
@@ -20,13 +21,14 @@ namespace WebApi.Controllers
         [HttpGet]
         public async Task<ActionResult<List<UnidadMedida>>> GetAllUnidadesMedida()
         {
-            return await _unidadMedidaBusiness.GetAll();
+            var unidadesMedida = await _unidadMedidaBusiness.GetAll();
+            return unidadesMedida.ToList();
         }
 
         [HttpGet("{id}")]
         public async Task<ActionResult<UnidadMedida>> GetUnidadMedidaById(string id)
         {
-            var unidadMedida = await _unidadMedidaBusiness.GetById(id);
+            var unidadMedida = await _unidadMedidaBusiness.Get(id);
             if (unidadMedida == null) return NotFound();
             return unidadMedida;
         }
@@ -34,15 +36,14 @@ namespace WebApi.Controllers
         [HttpPost]
         public async Task<ActionResult<UnidadMedida>> CreateUnidadMedida(UnidadMedida unidadMedida)
         {
-            await _unidadMedidaBusiness.Create(unidadMedida);
+            await _unidadMedidaBusiness.Add(unidadMedida);
             return CreatedAtAction(nameof(GetUnidadMedidaById), new { id = unidadMedida.Id }, unidadMedida);
         }
 
         [HttpPut("{id}")]
-        public async Task<IActionResult> UpdateUnidadMedida(string id, UnidadMedida unidadMedida)
+        public async Task<IActionResult> UpdateUnidadMedida(UnidadMedida unidadMedida)
         {
-            if (id != unidadMedida.Id) return BadRequest();
-            await _unidadMedidaBusiness.Update(id, unidadMedida);
+            await _unidadMedidaBusiness.Update(unidadMedida);
             return NoContent();
         }
 

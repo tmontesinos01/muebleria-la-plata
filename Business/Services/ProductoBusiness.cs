@@ -23,7 +23,7 @@ namespace Business.Services
             return items.Where(p => p.Activo).ToList();
         }
 
-        public async Task<Producto> Get(string id)
+        public async Task<Producto?> Get(string id)
         {
             var producto = await _productoRepo.Get(id);
             if (producto == null || !producto.Activo) return null;

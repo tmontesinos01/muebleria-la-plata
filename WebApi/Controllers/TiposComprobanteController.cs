@@ -1,18 +1,19 @@
-using Business.Services;
+using Business.Interfaces;
 using Entities;
 using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 
 namespace WebApi.Controllers
 {
     [ApiController]
-    [Route("api/[controller]")]
+    [Route("[controller]")]
     public class TiposComprobanteController : ControllerBase
     {
-        private readonly TipoComprobanteBusiness _tipoComprobanteBusiness;
+        private readonly ITipoComprobanteBusiness _tipoComprobanteBusiness;
 
-        public TiposComprobanteController(TipoComprobanteBusiness tipoComprobanteBusiness)
+        public TiposComprobanteController(ITipoComprobanteBusiness tipoComprobanteBusiness)
         {
             _tipoComprobanteBusiness = tipoComprobanteBusiness;
         }
@@ -20,13 +21,14 @@ namespace WebApi.Controllers
         [HttpGet]
         public async Task<ActionResult<List<TipoComprobante>>> GetAllTiposComprobante()
         {
-            return await _tipoComprobanteBusiness.GetAll();
+            var datos = await _tipoComprobanteBusiness.GetAll();
+            return datos.ToList();
         }
 
         [HttpGet("{id}")]
         public async Task<ActionResult<TipoComprobante>> GetTipoComprobanteById(string id)
         {
-            var tipoComprobante = await _tipoComprobanteBusiness.GetById(id);
+            var tipoComprobante = await _tipoComprobanteBusiness.Get(id);
             if (tipoComprobante == null) return NotFound();
             return tipoComprobante;
         }
@@ -34,15 +36,14 @@ namespace WebApi.Controllers
         [HttpPost]
         public async Task<ActionResult<TipoComprobante>> CreateTipoComprobante(TipoComprobante tipoComprobante)
         {
-            await _tipoComprobanteBusiness.Create(tipoComprobante);
+            await _tipoComprobanteBusiness.Add(tipoComprobante);
             return CreatedAtAction(nameof(GetTipoComprobanteById), new { id = tipoComprobante.Id }, tipoComprobante);
         }
 
         [HttpPut("{id}")]
-        public async Task<IActionResult> UpdateTipoComprobante(string id, TipoComprobante tipoComprobante)
+        public async Task<IActionResult> UpdateTipoComprobante(TipoComprobante tipoComprobante)
         {
-            if (id != tipoComprobante.Id) return BadRequest();
-            await _tipoComprobanteBusiness.Update(id, tipoComprobante);
+            await _tipoComprobanteBusiness.Update(tipoComprobante);
             return NoContent();
         }
 

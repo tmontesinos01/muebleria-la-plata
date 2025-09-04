@@ -1,3 +1,4 @@
+using Business.Interfaces;
 using Data.Interfaces;
 using Entities;
 using System;
@@ -7,44 +8,50 @@ using System.Threading.Tasks;
 
 namespace Business.Services
 {
-    public class TipoComprobanteBusiness
+    public class TipoComprobanteBusiness : ITipoComprobanteBusiness
     {
-        private readonly IRepositorio<TipoComprobante> _tipoComprobanteRepo;
+        private readonly IRepository<TipoComprobante> _repository;
 
-        public TipoComprobanteBusiness(IRepositorio<TipoComprobante> tipoComprobanteRepo)
+        public TipoComprobanteBusiness(IRepository<TipoComprobante> repository)
         {
-            _tipoComprobanteRepo = tipoComprobanteRepo;
+            _repository = repository;
         }
 
-        public async Task<List<TipoComprobante>> GetAll()
+        public async Task<string> Add(TipoComprobante entity)
         {
-            var items = await _tipoComprobanteRepo.GetAll();
-            return items.Where(t => t.Activo).ToList();
-        }
-
-        public async Task<TipoComprobante?> GetById(string id)
-        {
-            var tipoComprobante = await _tipoComprobanteRepo.Get(id);
-            if (tipoComprobante == null || !tipoComprobante.Activo) return null;
-            return tipoComprobante;
-        }
-
-        public async Task<TipoComprobante> Create(TipoComprobante tipoComprobante)
-        {
-            tipoComprobante.Activo = true;
-            tipoComprobante.FechaCreacion = DateTime.UtcNow;
-            return await _tipoComprobanteRepo.Add(tipoComprobante);
-        }
-
-        public async Task Update(string id, TipoComprobante tipoComprobante)
-        {
-            tipoComprobante.FechaLog = DateTime.UtcNow;
-            await _tipoComprobanteRepo.Update(id, tipoComprobante);
+            entity.Activo = true;
+            entity.FechaCreacion = DateTime.UtcNow;
+            return await _repository.Add(entity);
         }
 
         public async Task Delete(string id)
         {
-            await _tipoComprobanteRepo.Delete(id);
+            var entity = await _repository.Get(id);
+            if (entity != null)
+            {
+                entity.Activo = false;
+                entity.FechaLog = DateTime.UtcNow;
+                await _repository.Update(entity);
+            }
+        }
+
+        public async Task<TipoComprobante?> Get(string id)
+        {
+            var item = await _repository.Get(id);
+            if (item != null && !item.Activo) return null;
+            return item;
+        }
+
+        public async Task<IEnumerable<TipoComprobante>> GetAll()
+        {
+            var items = await _repository.GetAll();
+            return items.Where(t => t.Activo);
+        }
+
+        public async Task Update(TipoComprobante entity)
+        {
+            entity.FechaLog = DateTime.UtcNow;
+            await _repository.Update(entity);
         }
     }
 }

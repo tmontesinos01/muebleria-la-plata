@@ -1,18 +1,19 @@
-using Business.Services;
+using Business.Interfaces;
 using Entities;
 using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 
 namespace WebApi.Controllers
 {
     [ApiController]
-    [Route("api/[controller]")]
+    [Route("[controller]")]
     public class PerfilesController : ControllerBase
     {
-        private readonly PerfilBusiness _perfilBusiness;
+        private readonly IPerfilBusiness _perfilBusiness;
 
-        public PerfilesController(PerfilBusiness perfilBusiness)
+        public PerfilesController(IPerfilBusiness perfilBusiness)
         {
             _perfilBusiness = perfilBusiness;
         }
@@ -20,13 +21,14 @@ namespace WebApi.Controllers
         [HttpGet]
         public async Task<ActionResult<List<Perfil>>> GetAllPerfiles()
         {
-            return await _perfilBusiness.GetAll();
+            var datos = await _perfilBusiness.GetAll();
+            return datos.ToList();
         }
 
         [HttpGet("{id}")]
         public async Task<ActionResult<Perfil>> GetPerfilById(string id)
         {
-            var perfil = await _perfilBusiness.GetById(id);
+            var perfil = await _perfilBusiness.Get(id);
             if (perfil == null) return NotFound();
             return perfil;
         }
@@ -34,18 +36,14 @@ namespace WebApi.Controllers
         [HttpPost]
         public async Task<ActionResult<Perfil>> CreatePerfil(Perfil perfil)
         {
-            await _perfilBusiness.Create(perfil);
+            await _perfilBusiness.Add(perfil);
             return CreatedAtAction(nameof(GetPerfilById), new { id = perfil.Id }, perfil);
         }
 
         [HttpPut("{id}")]
         public async Task<IActionResult> UpdatePerfil(string id, Perfil perfil)
         {
-            if (id != perfil.Id)
-            {
-                return BadRequest();
-            }
-            await _perfilBusiness.Update(id, perfil);
+            await _perfilBusiness.Update(perfil);
             return NoContent();
         }
 

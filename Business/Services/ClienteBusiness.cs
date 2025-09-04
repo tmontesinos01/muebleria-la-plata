@@ -10,14 +10,14 @@ namespace Business.Services
 {
     public class ClienteBusiness : IClienteBusiness
     {
-        private readonly IRepositorio<Cliente> _clienteRepo;
+        private readonly IRepository<Cliente> _clienteRepo;
 
-        public ClienteBusiness(IRepositorio<Cliente> clienteRepo)
+        public ClienteBusiness(IRepository<Cliente> clienteRepo)
         {
             _clienteRepo = clienteRepo;
         }
 
-        public async Task<List<Cliente>> GetAll()
+        public async Task<IEnumerable<Cliente>> GetAll()
         {
             var items = await _clienteRepo.GetAll();
             return items.Where(c => c.Activo).ToList();
@@ -30,17 +30,17 @@ namespace Business.Services
             return cliente;
         }
 
-        public async Task<Cliente> Add(Cliente cliente)
+        public async Task<string> Add(Cliente cliente)
         {
             cliente.Activo = true;
             cliente.FechaCreacion = DateTime.UtcNow;
             return await _clienteRepo.Add(cliente);
         }
 
-        public async Task Update(string id, Cliente cliente)
+        public async Task Update(Cliente cliente)
         {
             cliente.FechaLog = DateTime.UtcNow;
-            await _clienteRepo.Update(id, cliente);
+            await _clienteRepo.Update(cliente);
         }
 
         public async Task Delete(string id)
@@ -50,7 +50,7 @@ namespace Business.Services
             {
                 cliente.Activo = false;
                 cliente.FechaLog = DateTime.UtcNow;
-                await _clienteRepo.Update(id, cliente);
+                await _clienteRepo.Update(cliente);
             }
         }
     }
