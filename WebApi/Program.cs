@@ -102,9 +102,18 @@ builder.Services.AddScoped<IPerfilBusiness, PerfilBusiness>();
 builder.Services.AddScoped<ITipoComprobanteBusiness, TipoComprobanteBusiness>();
 builder.Services.AddScoped<IUnidadMedidaBusiness, UnidadMedidaBusiness>();
 builder.Services.AddScoped<IUsuarioBusiness, UsuarioBusiness>();
+builder.Services.AddScoped<IFacturaBusiness, FacturaBusiness>();
+builder.Services.AddScoped<IEstadoFacturaBusiness, EstadoFacturaBusiness>();
+
+// Servicios de impresión
+builder.Services.AddScoped<IFacturaArchivoService, FacturaArchivoService>();
+builder.Services.AddScoped<IComprobanteImpresionService, ComprobanteImpresionService>();
 
 // Generic Repository
 builder.Services.AddScoped(typeof(IRepository<>), typeof(FirestoreRepository<>));
+
+// Specific Repositories
+builder.Services.AddScoped<Data.Repositorios.FacturaRepositorio>();
 
 var app = builder.Build();
 

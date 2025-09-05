@@ -6,6 +6,9 @@ namespace Entities
     public class Configuracion : EntidadMaestra
     {
         [FirestoreProperty]
+        public string Codigo { get; set; } // Código único para identificar la configuración
+
+        [FirestoreProperty]
         public string Clave { get; set; }
 
         [FirestoreProperty]

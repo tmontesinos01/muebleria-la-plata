@@ -88,5 +88,17 @@ namespace Business.Services
             var config = configuraciones.FirstOrDefault(c => c.Clave == "PUNTO_VENTA_DEFAULT");
             return config?.Valor ?? "0001";
         }
+
+        public async Task<Configuracion> GetByCodigo(string codigo)
+        {
+            var configuraciones = await GetAll();
+            return configuraciones.FirstOrDefault(c => c.Codigo == codigo);
+        }
+
+        public async Task<Configuracion> GetByClave(string clave)
+        {
+            var configuraciones = await GetAll();
+            return configuraciones.FirstOrDefault(c => c.Clave == clave);
+        }
     }
 }

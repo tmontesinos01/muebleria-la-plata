@@ -1,4 +1,6 @@
-namespace Entities.DTOs
+using System.Collections.Generic;
+
+namespace Entities.DTOs.Clientes
 {
     public class ValidarClienteResponseDTO
     {
@@ -10,12 +12,8 @@ namespace Entities.DTOs
         public string codigopostal { get; set; }
         public string estado { get; set; }
         public string provincia { get; set; }
-        public List<ActividadDTO> actividad { get; set; }
+        public string actividad { get; set; }
         public List<string> errores { get; set; }
-    }
-
-    public class ActividadDTO
-    {
         public string descripcion { get; set; }
         public string id { get; set; }
         public string nomenclador { get; set; }

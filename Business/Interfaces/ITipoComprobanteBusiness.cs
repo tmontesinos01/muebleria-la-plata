@@ -12,5 +12,7 @@ namespace Business.Interfaces
         Task<string> Add(TipoComprobante entity);
         Task Update(TipoComprobante entity);
         Task Delete(string id);
+        Task<TipoComprobante> GetByCodigo(string codigo);
+        Task<TipoComprobante> GetByAbreviatura(string abreviatura);
     }
 }

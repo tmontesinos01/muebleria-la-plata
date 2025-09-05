@@ -1,123 +1,221 @@
-# 🧪 Test del Sistema de Mueblería
+# 🧪 TEST COMPLETO DEL SISTEMA - MUEBLERÍA LA PLATA
 
-Este test verifica que todo el sistema esté funcionando correctamente, incluyendo Firebase Firestore, Firebase Storage, y la creación de categorías y productos.
+## 📋 DESCRIPCIÓN
 
-## 📋 Lo que hace el test:
+Este test completo simula todo el proceso de facturación electrónica AFIP/ARCA del sistema de mueblería, desde la creación de productos hasta la emisión de comprobantes electrónicos.
 
-1. **📁 Crea 2 categorías:**
-   - PINO (Muebles de pino natural)
-   - MELAMINA (Muebles de melamina)
+## 🎯 OBJETIVOS
 
-2. **🛋️ Crea 3 productos:**
-   - Mesa de Pino ($45,000) - Categoría PINO
-   - Estantería Melamina ($25,000) - Categoría MELAMINA  
-   - Silla de Pino ($15,000) - Categoría PINO
+- ✅ **Validar funcionalidad completa** del sistema de facturación
+- ✅ **Probar todos los endpoints** implementados
+- ✅ **Verificar integración** con TusFacturasAPP
+- ✅ **Confirmar almacenamiento** en Firebase/Firestore
+- ✅ **Simular flujo real** de trabajo
 
-3. **🖼️ Sube imágenes:**
-   - Asocia la imagen `test-image.png` a cada producto
-   - Guarda las URLs en Firebase Storage
+## 🚀 FUNCIONALIDADES PROBADAS
 
-4. **🔍 Verifica los datos:**
-   - Recupera los productos desde la base de datos
-   - Verifica que las imágenes se subieron correctamente
-   - Muestra todos los detalles de los productos creados
+### 📦 **Gestión de Productos**
+- **Uso inteligente**: Usa productos existentes si están disponibles
+- **Creación automática**: Crea productos faltantes si es necesario
+- **Mínimo requerido**: 5 productos para el test completo
+- Validación de datos
 
-## 🚀 Cómo ejecutar el test:
+### 👥 **Gestión de Clientes**
+- **Uso inteligente**: Usa clientes existentes si están disponibles
+- **Creación automática**: Crea clientes faltantes si es necesario
+- **Mínimo requerido**: 3 clientes para el test completo
+- Validación de clientes en AFIP
 
-### Opción 1: Script automático (Recomendado)
+### 🛒 **Simulación de Ventas**
+- Simulación de ventas para facturación
+- Datos preparados para emisión de comprobantes
 
-**Windows:**
+### 🧾 **Facturación Electrónica**
+- Emisión de Facturas A y B
+- Emisión de Tickets
+- Emisión de Tickets Factura B
+
+### 📝 **Notas de Crédito/Débito**
+- Emisión de notas de crédito
+- Emisión de notas de débito
+- Consulta de notas por factura
+
+### ❌ **Anulación y Reimpresión**
+- Anulación de facturas
+- Reimpresión de facturas
+
+## 📊 DATOS DE PRUEBA
+
+### **Productos Creados (5)**
+1. Mesa de Comedor - $50,000
+2. Silla de Comedor - $15,000
+3. Sofá 3 Cuerpos - $120,000
+4. Mesa de Centro - $25,000
+5. Lámpara de Pie - $18,000
+
+### **Clientes Creados (3)**
+1. Juan Pérez (DNI: 12345678)
+2. María González (DNI: 87654321)
+3. Empresa ABC S.A. (CUIT: 20123456789)
+
+### **Ventas Simuladas (2)**
+1. Venta Simulada 1: Mesa + 4 Sillas
+2. Venta Simulada 2: Sofá + Mesa de Centro
+
+### **Comprobantes Emitidos**
+- 2 Facturas (A y B)
+- 2 Tickets (estándar y factura B)
+- 1 Nota de Crédito
+- 1 Nota de Débito
+
+## 🛠️ REQUISITOS
+
+### **Sistema**
+- .NET 9.0 o superior
+- Servidor de la API ejecutándose
+- Conexión a Firebase/Firestore
+- Credenciales de TusFacturasAPP configuradas
+
+### **Configuración**
+- Base de datos con tipos de comprobantes insertados
+- Configuración de TusFacturasAPP en la tabla Configuracion
+- Punto de venta habilitado en AFIP
+
+## 🚀 EJECUCIÓN
+
+### **Método 1: Script Automático (Recomendado)**
 ```bash
-cd test
+# En Windows
 run-test.bat
-```
 
-**Linux/Mac:**
-```bash
-cd test
+# En Linux/Mac
+chmod +x run-test.sh
 ./run-test.sh
 ```
 
-### Opción 2: Manual
-
+### **Método 2: Manual**
 ```bash
-cd test/TestProject
+# Compilar
 dotnet build
+
+# Ejecutar
+dotnet run
+
+# Con URL personalizada
+dotnet run https://localhost:7000
+```
+
+## 📋 FLUJO DE EJECUCIÓN
+
+1. **Configuración**: Verifica conexión al servidor
+2. **Productos**: Usa existentes o crea hasta 5 productos
+3. **Clientes**: Usa existentes o crea hasta 3 clientes
+4. **Validación AFIP**: Valida clientes en AFIP
+5. **Ventas**: Simula 2 ventas para facturación
+6. **Facturas**: Emite 2 facturas (A y B)
+7. **Tickets**: Emite 2 tickets
+8. **Notas**: Emite notas de crédito y débito
+9. **Anulación**: Anula una factura
+10. **Reimpresión**: Reimprime una factura
+11. **Consulta**: Consulta todos los datos creados
+
+## 🔍 VERIFICACIÓN EN FIREBASE STUDIO
+
+### **Colecciones a Revisar**
+
+#### **Productos**
+- Verificar productos existentes o creados (mínimo 5)
+- Revisar nombres y precios
+
+#### **Clientes**
+- Verificar clientes existentes o creados (mínimo 3)
+- Revisar documentos y datos
+
+#### **Ventas**
+- Verificar ventas pendientes de facturación
+- Revisar estructura de datos
+
+#### **Facturas**
+- Verificar facturas emitidas con CAE
+- Revisar tickets emitidos
+- Verificar notas de crédito/débito
+- Revisar facturas anuladas
+
+#### **Configuración**
+- Verificar credenciales de TusFacturasAPP
+- Revisar configuración de punto de venta
+
+#### **Tipos de Comprobantes**
+- Verificar que están todos los tipos configurados
+- Revisar: facturas, notas, tickets
+
+#### **Estados de Factura**
+- Verificar estados configurados
+- Revisar: EMITIDA, ANULADA, etc.
+
+## 📊 RESULTADOS ESPERADOS
+
+### **Éxito**
+- ✅ Productos disponibles (existentes o creados)
+- ✅ Clientes disponibles (existentes o creados)
+- ✅ Todas las ventas simuladas
+- ✅ Todas las facturas emitidas con CAE
+- ✅ Todos los tickets emitidos
+- ✅ Notas de crédito/débito emitidas
+- ✅ Facturas anuladas correctamente
+- ✅ Reimpresión exitosa
+
+### **Fallos Comunes**
+- ❌ Servidor no disponible
+- ❌ Credenciales de TusFacturasAPP incorrectas
+- ❌ Tipos de comprobantes no configurados
+- ❌ Punto de venta no habilitado en AFIP
+- ❌ Errores de conectividad con Firebase
+
+## 🔧 SOLUCIÓN DE PROBLEMAS
+
+### **Error: Servidor no disponible**
+```bash
+# Verificar que el servidor esté ejecutándose
+curl https://localhost:7000/swagger
+
+# Iniciar servidor si es necesario
+cd ../WebApi
 dotnet run
 ```
 
-## 📁 Archivos necesarios:
+### **Error: Credenciales TusFacturasAPP**
+- Verificar que las credenciales estén configuradas en Firebase
+- Revisar tabla Configuracion
+- Confirmar que las credenciales sean válidas
 
-- `firebase-credentials.json` - Credenciales de Firebase (se copia automáticamente)
-- `serviceAccount.json` - Cuenta de servicio (se copia automáticamente)
-- `test-image.png` - Imagen de prueba (debe existir en la carpeta test)
+### **Error: Tipos de comprobantes**
+- Ejecutar script `04_TiposComprobantes_AFIP.sql`
+- Verificar que los tipos estén activos
 
-## ✅ Resultado esperado:
+### **Error: Punto de venta**
+- Verificar configuración `PUNTO_VENTA_DEFAULT`
+- Confirmar que esté habilitado en AFIP
 
-Si todo funciona correctamente, verás:
+## 📈 MÉTRICAS DE ÉXITO
 
-```
-=== INICIANDO PRUEBA COMPLETA DEL SISTEMA DE MUEBLERÍA ===
-Verificando: Firebase Firestore, Storage, Categorías y Productos
+| Componente | Esperado | Crítico |
+|------------|----------|---------|
+| **Productos** | 5+ | ✅ |
+| **Clientes** | 3+ | ✅ |
+| **Ventas Simuladas** | 2 | ✅ |
+| **Facturas** | 2 | ✅ |
+| **Tickets** | 2 | ✅ |
+| **Notas** | 2 | ✅ |
+| **Anulaciones** | 1 | ✅ |
+| **Reimpresiones** | 1 | ✅ |
 
-📁 PASO 1: Creando categorías PINO y MELAMINA...
-✅ Categoría PINO creada con ID: [ID]
-✅ Categoría MELAMINA creada con ID: [ID]
+## 🎯 CONCLUSIÓN
 
-🛋️ PASO 2: Creando 3 productos con imágenes...
-✅ Producto 'Mesa de Pino' creado con ID: [ID]
-✅ Producto 'Estantería Melamina' creado con ID: [ID]
-✅ Producto 'Silla de Pino' creado con ID: [ID]
+Este test completo valida que el sistema de mueblería está **100% funcional** para facturación electrónica AFIP/ARCA. Si el test se ejecuta exitosamente, el sistema está listo para producción.
 
-🖼️ PASO 3: Subiendo imágenes a los productos...
-✅ Imagen subida para 'Mesa de Pino': [URL]
-✅ Imagen subida para 'Estantería Melamina': [URL]
-✅ Imagen subida para 'Silla de Pino': [URL]
-
-🔍 PASO 4: Recuperando productos desde la base de datos...
-📊 Total de productos en la base de datos: [N]
-🖼️ Productos con imagen: [N]
-
-📋 DETALLES DE PRODUCTOS CREADOS:
-🛋️ Mesa de Pino
-   ID: [ID]
-   Descripción: Mesa de comedor de pino macizo
-   Precio: $45,000.00
-   Stock: 5
-   Código: MESA-PINO-001
-   Categoría ID: [ID]
-   Imagen: ✅ Con imagen
-   URL Imagen: [URL]
-
-[... más productos ...]
-
-📁 PASO 5: Verificando categorías creadas...
-📊 Total de categorías: [N]
-🌲 Categorías PINO y MELAMINA: 2
-✅ PINO - ID: [ID]
-✅ MELAMINA - ID: [ID]
-
-🎉 PRUEBA COMPLETADA EXITOSAMENTE
-✅ Firebase Firestore: Funcionando
-✅ Firebase Storage: Funcionando
-✅ Categorías: Creadas correctamente
-✅ Productos: Creados y recuperados correctamente
-✅ Imágenes: Subidas y asociadas correctamente
-```
-
-## 🔧 Solución de problemas:
-
-- **Error de credenciales**: Verifica que `firebase-credentials.json` y `serviceAccount.json` existan
-- **Error de imagen**: Verifica que `test-image.png` exista en la carpeta test
-- **Error de conexión**: Verifica que tengas acceso a internet y a Firebase
-
-## 📊 Datos de prueba creados:
-
-El test crea datos reales en tu base de datos Firebase. Los datos incluyen:
-
-- **2 categorías** con nombres en mayúsculas (PINO, MELAMINA)
-- **3 productos** con precios, stock y códigos específicos
-- **3 imágenes** subidas a Firebase Storage
-- **Relaciones** entre productos y categorías
-
-Estos datos permanecerán en tu base de datos después del test.
+### **Próximos Pasos**
+1. ✅ Ejecutar test completo
+2. ✅ Verificar resultados en Firebase Studio
+3. ✅ Corregir errores si los hay
+4. ✅ Publicar sistema a producción

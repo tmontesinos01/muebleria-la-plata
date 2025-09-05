@@ -33,6 +33,22 @@ namespace WebApi.Controllers
             return tipoComprobante;
         }
 
+        [HttpGet("obtener-por-codigo/{codigo}")]
+        public async Task<ActionResult<TipoComprobante>> GetTipoComprobanteByCodigo(string codigo)
+        {
+            var tipoComprobante = await _tipoComprobanteBusiness.GetByCodigo(codigo);
+            if (tipoComprobante == null) return NotFound();
+            return tipoComprobante;
+        }
+
+        [HttpGet("obtener-por-abreviatura/{abreviatura}")]
+        public async Task<ActionResult<TipoComprobante>> GetTipoComprobanteByAbreviatura(string abreviatura)
+        {
+            var tipoComprobante = await _tipoComprobanteBusiness.GetByAbreviatura(abreviatura);
+            if (tipoComprobante == null) return NotFound();
+            return tipoComprobante;
+        }
+
         [HttpPost("crear")]
         public async Task<ActionResult<TipoComprobante>> CreateTipoComprobante(TipoComprobante tipoComprobante)
         {

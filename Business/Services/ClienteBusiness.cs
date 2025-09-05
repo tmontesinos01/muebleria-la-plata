@@ -1,7 +1,7 @@
 using Business.Interfaces;
 using Data.Interfaces;
 using Entities;
-using Entities.DTOs;
+using Entities.DTOs.Clientes;
 using System;
 using System.Collections.Generic;
 using System.Linq;

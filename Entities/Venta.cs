@@ -21,5 +21,17 @@ namespace Entities
 
         [FirestoreProperty]
         public List<VentaDetalle> Detalles { get; set; }
+
+        [FirestoreProperty]
+        public bool Facturada { get; set; } = false;
+
+        [FirestoreProperty]
+        public string NumeroFactura { get; set; }
+
+        [FirestoreProperty]
+        public DateTime? FechaFacturacion { get; set; }
+
+        [FirestoreProperty]
+        public string EstadoFacturacion { get; set; } = "PENDIENTE";
     }
 }

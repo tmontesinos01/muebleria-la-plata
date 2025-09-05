@@ -53,5 +53,17 @@ namespace Business.Services
             entity.FechaLog = DateTime.UtcNow;
             await _repository.Update(entity);
         }
+
+        public async Task<TipoComprobante> GetByCodigo(string codigo)
+        {
+            var items = await GetAll();
+            return items.FirstOrDefault(t => t.Codigo == codigo);
+        }
+
+        public async Task<TipoComprobante> GetByAbreviatura(string abreviatura)
+        {
+            var items = await GetAll();
+            return items.FirstOrDefault(t => t.Abreviatura == abreviatura);
+        }
     }
 }

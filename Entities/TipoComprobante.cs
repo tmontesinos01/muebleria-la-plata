@@ -6,6 +6,9 @@ namespace Entities
     public class TipoComprobante : EntidadMaestra
     {
         [FirestoreProperty]
+        public string Codigo { get; set; } // Código único para identificar el tipo de comprobante
+
+        [FirestoreProperty]
         public string Nombre { get; set; }
 
         [FirestoreProperty]
