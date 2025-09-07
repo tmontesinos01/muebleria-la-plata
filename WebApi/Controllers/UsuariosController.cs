@@ -1,6 +1,6 @@
 using Business.Interfaces;
 using Entities;
-using Entities.DTOs;
+using Entities.DTOs.Auth;
 using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
 using System.Threading.Tasks;

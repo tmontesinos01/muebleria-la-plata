@@ -12,10 +12,10 @@ namespace Entities
         public string Descripcion { get; set; }
 
         [FirestoreProperty]
-        public decimal Precio { get; set; }
+        public double Precio { get; set; }
 
         [FirestoreProperty]
-        public decimal Stock { get; set; }
+        public double Stock { get; set; }
 
         [FirestoreProperty]
         public string IdCategoria { get; set; }
@@ -27,7 +27,7 @@ namespace Entities
         public string Codigo { get; set; }
 
         [FirestoreProperty]
-        public decimal AlicuotaIva { get; set; }
+        public double AlicuotaIva { get; set; }
 
         [FirestoreProperty]
         public string IdUnidadMedida { get; set; }

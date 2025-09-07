@@ -17,7 +17,7 @@ namespace Entities
         public DateTime Fecha { get; set; }
 
         [FirestoreProperty]
-        public decimal Cantidad { get; set; } // Positivo para entradas, negativo para salidas
+        public double Cantidad { get; set; } // Positivo para entradas, negativo para salidas
 
         [FirestoreProperty]
         public string TipoMovimiento { get; set; } // Ej: "Venta", "Devolución", "Ajuste Inventario"

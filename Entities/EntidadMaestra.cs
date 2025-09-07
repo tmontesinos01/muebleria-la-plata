@@ -1,6 +1,6 @@
-using Google.Cloud.Firestore;
 using System;
 using Entities.Interfaces;
+using Google.Cloud.Firestore;
 
 namespace Entities
 {

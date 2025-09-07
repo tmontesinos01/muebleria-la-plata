@@ -1,7 +1,7 @@
 using Business.Interfaces;
 using Data.Interfaces;
 using Entities;
-using Entities.DTOs;
+using Entities.DTOs.Auth;
 using Microsoft.IdentityModel.Tokens;
 using System;
 using System.Collections.Generic;
@@ -98,12 +98,10 @@ namespace Business.Services
                 // Crear información del usuario
                 var userInfo = new UserInfoDTO
                 {
-                    id = int.TryParse(usuario.Id, out int userId) ? userId : 0,
+                    uid = usuario.Id,
                     nombre = $"{usuario.Nombre} {usuario.Apellido}".Trim(),
                     correo = usuario.Email,
-                    idPerfil = int.TryParse(usuario.IdPerfil, out int perfilId) ? perfilId : 0,
-                    activo = usuario.Activo,
-                    ultimoAcceso = DateTime.UtcNow
+                    perfil = usuario.IdPerfil
                 };
 
                 // Crear datos de autenticación
@@ -111,7 +109,6 @@ namespace Business.Services
                 {
                     token = token,
                     refreshToken = refreshToken,
-                    expiresIn = 3600, // 1 hora en segundos
                     user = userInfo
                 };
 
@@ -132,7 +129,7 @@ namespace Business.Services
                 {
                     success = false,
                     message = $"Error interno del servidor: {ex.Message}",
-                    data = new AuthDataDTO() 
+                    data = new AuthDataDTO()
                 };
             }
         }

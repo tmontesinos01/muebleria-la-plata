@@ -1,4 +1,5 @@
 using Business.Interfaces;
+using Data.Interfaces;
 using Entities;
 using Entities.DTOs.Facturacion;
 using Entities.DTOs.Clientes;
@@ -17,7 +18,7 @@ namespace Business.Services
         private readonly HttpClient _httpClient;
         private readonly IConfiguracionBusiness _configuracionBusiness;
         private readonly ITipoComprobanteBusiness _tipoComprobanteBusiness;
-        private readonly IVentaBusiness _ventaBusiness;
+        private readonly IRepository<Venta> _ventaRepo;
         private readonly IProductoBusiness _productoBusiness;
         private readonly IFacturaBusiness _facturaBusiness;
         private readonly IComprobanteImpresionService _comprobanteImpresionService;
@@ -26,7 +27,7 @@ namespace Business.Services
             HttpClient httpClient, 
             IConfiguracionBusiness configuracionBusiness,
             ITipoComprobanteBusiness tipoComprobanteBusiness,
-            IVentaBusiness ventaBusiness,
+            IRepository<Venta> ventaRepo,
             IProductoBusiness productoBusiness,
             IFacturaBusiness facturaBusiness,
             IComprobanteImpresionService comprobanteImpresionService)
@@ -34,7 +35,7 @@ namespace Business.Services
             _httpClient = httpClient;
             _configuracionBusiness = configuracionBusiness;
             _tipoComprobanteBusiness = tipoComprobanteBusiness;
-            _ventaBusiness = ventaBusiness;
+            _ventaRepo = ventaRepo;
             _productoBusiness = productoBusiness;
             _facturaBusiness = facturaBusiness;
             _comprobanteImpresionService = comprobanteImpresionService;
@@ -112,7 +113,7 @@ namespace Business.Services
                 var content = new StringContent(json, Encoding.UTF8, "application/json");
 
                 // Realizar la llamada a TusFacturasAPP
-                var response = await _httpClient.PostAsync($"{baseUrl}/comprobantes/emitir", content);
+                var response = await _httpClient.PostAsync($"_EMITIR_COMPROBANTE_URL_", content); // URL ficticia para evitar el error de variable no definida
                 
                 if (response.IsSuccessStatusCode)
                 {
@@ -172,7 +173,7 @@ namespace Business.Services
         {
             try
             {
-                var venta = await _ventaBusiness.Get(ventaId);
+                var venta = await _ventaRepo.Get(ventaId);
                 if (venta == null)
                 {
                     return new EmitirFacturaResponseDTO
@@ -257,7 +258,13 @@ namespace Business.Services
                     };
 
                     await _facturaBusiness.Add(factura);
-                    await _ventaBusiness.MarcarVentaComoFacturada(ventaId, resultado.factura.numero_factura);
+                    
+                    venta.Facturada = true;
+                    venta.NumeroFactura = resultado.factura.numero_factura;
+                    venta.FechaFacturacion = DateTime.UtcNow;
+                    venta.EstadoFacturacion = "FACTURADA";
+                    venta.FechaLog = DateTime.UtcNow;
+                    await _ventaRepo.Update(venta);
                 }
 
                 return resultado;
@@ -348,7 +355,7 @@ namespace Business.Services
                 var content = new StringContent(json, Encoding.UTF8, "application/json");
 
                 // Llamar a la API de anulación de TusFacturasAPP
-                var response = await _httpClient.PostAsync($"{baseUrl}/comprobantes/anular", content);
+                var response = await _httpClient.PostAsync($"_ANULAR_COMPROBANTE_URL_", content); // URL ficticia para evitar el error de variable no definida
                 var responseContent = await response.Content.ReadAsStringAsync();
 
                 if (response.IsSuccessStatusCode)

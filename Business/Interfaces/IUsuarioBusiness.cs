@@ -1,5 +1,5 @@
 using Entities;
-using Entities.DTOs;
+using Entities.DTOs.Auth;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 

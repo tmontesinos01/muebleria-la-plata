@@ -37,7 +37,7 @@ namespace TestProject
         {
             var resultado = new TestResult();
             Console.WriteLine("🚀 INICIANDO TEST COMPLETO DEL SISTEMA DE FACTURACIÓN");
-            Console.WriteLine("=" * 60);
+            Console.WriteLine($"= 60");
 
             try
             {
@@ -80,8 +80,8 @@ namespace TestProject
                 resultado.Exito = true;
                 resultado.Mensaje = "Test completo ejecutado exitosamente";
 
-                Console.WriteLine("\n✅ TEST COMPLETO FINALIZADO EXITOSAMENTE");
-                Console.WriteLine("=" * 60);
+                Console.WriteLine($"\n✅ TEST COMPLETO FINALIZADO EXITOSAMENTE");
+                Console.WriteLine($"={60}" );
             }
             catch (Exception ex)
             {
